@@ -1,7 +1,8 @@
 <?php
 class HtmlDoc {
     private function showHtmlStart() {
-        echo"<html>";
+        echo"<!DOCTYPE html>";
+        echo "<html lang='en'>";
     }
 
     private function showHtmlEnd() {
