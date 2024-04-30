@@ -20,10 +20,6 @@ class BasicDoc extends HtmlDoc {
         echo "<title>Achraf's Webshop</title>";
     }
 
-    protected function showBodyContent() {
-        echo "body";//todo
-    }
-
     protected function showHead() {
         $this->showHeadStart();
         $this->showHeadContent();
@@ -48,11 +44,20 @@ class BasicDoc extends HtmlDoc {
         
     }
 
+    private function showFooter() {
+        echo "<footer>&copy; Copyright 2024 Achraf Reyani</footer>";
+    }
+
+    
+    protected function showBodyContent() {
+        $this->showMenu();
+        $this->showFooter();
+    }
+
     protected function showHeadContent() {
         $this->showMeta();
         $this->showCSSLinks();
         $this->showTitle();
     }
-
 }
 ?>
