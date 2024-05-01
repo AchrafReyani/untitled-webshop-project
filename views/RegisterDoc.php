@@ -1,6 +1,6 @@
 <?php
-require ("FormBuilder");
-class RegisterDoc extends FormBuilder {
+include_once 'FormBuilder.php';
+class RegisterDoc {
     protected function showContent() {
         //TODO
     }
