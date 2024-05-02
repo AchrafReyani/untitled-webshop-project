@@ -1,10 +1,9 @@
 <?php
 require "BasicDoc.php";
-abstract class ProductDoc extends BasicDoc {
+abstract class ProductsDoc extends BasicDoc {
 
-
-    public function show() {
-        $this->showContent(); 
+    public function show($data) {
+        $this->showContent($data); 
     }
 }
 ?>

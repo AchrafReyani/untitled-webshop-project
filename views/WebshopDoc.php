@@ -1,11 +1,8 @@
 <?php
 require ("ProductsDoc.php");
-class WebshopDoc extends ProductDoc {
-    function showWebshopStart() {
-       
-      }
+class WebshopDoc extends ProductsDoc {
       
-      function addToCartButton($id) {
+      private function addToCartButton($id) {
         echo "<form action='index.php' method='POST'>
         <input type='hidden' name='action' value='addToShoppingCart'>
         <input type='hidden' name='id' value=".$id.">
@@ -14,7 +11,7 @@ class WebshopDoc extends ProductDoc {
         </form>";
       }
       
-      function showWebshopContent($data) {
+      private function showWebshopContent($data) {
         echo "<h2>Webshop</h2>";
         try {
         //require_once 'db.php';
@@ -52,16 +49,16 @@ class WebshopDoc extends ProductDoc {
         return [ 'generalError' => $generalError ];
       }
       
-      function showWebshopPage($data) {
+      private function showWebshopPage($data) {
           
       }
 
-    protected function showContent() {
-        showWebshopContent($data);
+    protected function showContent($data) {
+        $this->showWebshopContent($data);
     }
 
-    public function show() {
-      $this->showContent(); 
+    public function show($data) {
+      $this->showContent($data); 
   }
 }
 ?>

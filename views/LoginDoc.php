@@ -82,7 +82,7 @@ class LoginDoc {
       }
       
     protected function showContent($data) {
-        echo "<h2>Login</h2>";
+        //echo "<h2>Login</h2>";
         showLoginStart();
         showLoginField("email", "Email", $data);
         showLoginField("password", "Password", $data);

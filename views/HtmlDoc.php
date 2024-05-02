@@ -35,7 +35,7 @@ class HtmlDoc {
         echo "</body>";
     }
 
-    public function show() {
+    public function show($data) {
         $this->showHtmlStart();
         $this->showHeadStart();
         $this->showHeadContent();

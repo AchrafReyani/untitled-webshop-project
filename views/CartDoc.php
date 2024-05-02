@@ -1,10 +1,10 @@
 <?php
 require ("ProductsDoc.php");
-class CartDoc extends ProductDoc {
+class CartDoc extends ProductsDoc {
 
 
       
-    function addToOrderButton($id) {
+    private function addToOrderButton($id) {
         echo "<form action='index.php' method='POST'>
         <input type='hidden' name='action' value='addToShoppingCart'>
         <input type='hidden' name='id' value=".$id.">
@@ -13,7 +13,7 @@ class CartDoc extends ProductDoc {
         </form>";
     }
       
-    function removeFromOrderButton($id) {
+    private function removeFromOrderButton($id) {
         echo "<form action='index.php' method='POST'>
         <input type='hidden' name='action' value='removeFromShoppingCart'>
         <input type='hidden' name='id' value=".$id.">
@@ -23,7 +23,7 @@ class CartDoc extends ProductDoc {
     }
       
     //display product name, quantity, small image, price, and total price of the whole order
-    function showShoppingCartContent($data) {
+    private function showShoppingCartContent($data) {
         if (!isset($_SESSION['shoppingCart']) || empty($_SESSION['shoppingCart'])) {
             echo 'Your shopping cart is empty.';
         } else {
@@ -57,16 +57,16 @@ class CartDoc extends ProductDoc {
         </form>";
     }
       
-    protected function showContent() {
+    protected function showContent($data) {
         echo "<h2>Shopping Cart</h2>
         <p>Here are the items in your shopping cart:</p>";
 
-        //showShoppingCartContent($data);
-        //showOrderButton();
+        $this->showShoppingCartContent($data);
+        $this->showOrderButton();
     }
 
-    public function show() {
-        $this->showContent();
+    public function show($data) {
+        $this->showContent($data);
     }
 }
 ?>

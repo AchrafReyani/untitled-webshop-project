@@ -60,12 +60,12 @@ class BasicDoc extends HtmlDoc {
         $this->showTitle();
     }
 
-    private function showContent() {
+    private function showContent($data) {
         //empty?
     }
 
     //will this show be called?
-    public function show() {
+    public function show($data) {
         echo "it works";
     }
 }
