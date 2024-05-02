@@ -2,10 +2,7 @@
 require ("ProductsDoc.php");
 class CartDoc extends ProductDoc {
 
-    function showShoppingCartStart() {
-        echo "<h2>Shopping Cart</h2>
-        <p>Here are the items in your shopping cart:</p>";
-      }
+
       
     function addToOrderButton($id) {
         echo "<form action='index.php' method='POST'>
@@ -61,9 +58,11 @@ class CartDoc extends ProductDoc {
     }
       
     protected function showContent() {
-        showShoppingCartStart();
-        showShoppingCartContent($data);
-        showOrderButton();
+        echo "<h2>Shopping Cart</h2>
+        <p>Here are the items in your shopping cart:</p>";
+
+        //showShoppingCartContent($data);
+        //showOrderButton();
     }
 
     public function show() {
