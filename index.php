@@ -20,8 +20,8 @@ function showContent($data) {
     case 'Home';
       include 'home.php';
       include_once "views/HomeDoc.php";
-      $view = new HomeDoc();
-      $view -> showContent();
+      $view = new HomeDoc($data);
+      $view -> show();
       //showHomePage();
       break;
     case 'About';
