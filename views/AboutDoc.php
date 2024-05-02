@@ -12,5 +12,9 @@ class AboutDoc extends BasicDoc {
         <li>Videogames, Comics</li>
         </ul> ";
     }
+
+    public function show() {
+        $this->showContent(); 
+    }
 }
 ?>

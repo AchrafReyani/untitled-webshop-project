@@ -65,5 +65,9 @@ class CartDoc extends ProductDoc {
         showShoppingCartContent($data);
         showOrderButton();
     }
+
+    public function show() {
+        $this->showContent();
+    }
 }
 ?>
