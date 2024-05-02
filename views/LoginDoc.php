@@ -74,13 +74,6 @@ class LoginDoc {
         </div>";
       }
       
-      private function showLoginPage($data){
-        showLoginStart();
-        showLoginField("email", "Email", $data);
-        showLoginField("password", "Password", $data);
-        showLoginEnd('loginError', $data);
-      }
-      
     protected function showContent($data) {
         //echo "<h2>Login</h2>";
         showLoginStart();

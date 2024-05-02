@@ -77,16 +77,7 @@ class RegisterDoc {
         </div>
         </form>";
       }
-      
-      private function showRegisterPage($data) {
-        showRegisterStart();
-        showRegisterField('name', 'Name', $data);
-        showRegisterField('email', 'Email', $data);
-        showRegisterField('password', 'Password', $data);
-        showRegisterField('confirm_password', 'Confirm Password', $data);
-        showRegisterEnd();
-      }
-      
+
     protected function showContent($data) {
         showRegisterStart();
         showRegisterField('name', 'Name', $data);

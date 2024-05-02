@@ -49,7 +49,7 @@ class CartDoc extends ProductsDoc {
         }
     }
       
-    function showOrderButton() {
+    private function showOrderButton() {
         echo "<form action='index.php' method='POST'>
         <input type='hidden' name='action' value='submitShoppingCart'>
         <input type='hidden' name='page' value='Webshop'>
