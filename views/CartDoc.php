@@ -1,5 +1,5 @@
 <?php
-require ("ProductDoc.php");
+require ("ProductsDoc.php");
 class CartDoc extends ProductDoc {
 
     function showShoppingCartStart() {

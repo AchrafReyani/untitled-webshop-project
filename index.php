@@ -7,6 +7,7 @@ include 'menu.php';
 include 'footer.php';
 include 'beginDocument.php';
 include 'endDocument.php';
+include 'HomeDoc.php';
 //include 'db.php';
 
 session_start(); //start session
@@ -18,7 +19,10 @@ function showContent($data) {
   {
     case 'Home';
       include 'home.php';
-      showHomePage();
+      include_once "views/HomeDoc.php";
+      $view = new HomeDoc();
+      $view -> showContent();
+      //showHomePage();
       break;
     case 'About';
       include 'about.php';

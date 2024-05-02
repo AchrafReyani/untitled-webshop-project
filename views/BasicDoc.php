@@ -59,5 +59,10 @@ class BasicDoc extends HtmlDoc {
         $this->showCSSLinks();
         $this->showTitle();
     }
+
+    //for testing
+    public function show() {
+        $this->showFooter();
+    }
 }
 ?>

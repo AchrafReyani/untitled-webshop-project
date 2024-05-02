@@ -1,5 +1,5 @@
 <?php
-require ("ProductDoc.php");
+require ("ProductsDoc.php");
 class WebshopDoc extends ProductDoc {
     function showWebshopStart() {
        

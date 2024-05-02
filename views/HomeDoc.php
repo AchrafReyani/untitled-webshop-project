@@ -5,5 +5,9 @@ class HomeDoc extends BasicDoc {
         echo "<h2>Home</h2>";
         echo "<p>Welcome to Achraf's webshop!</p>";
     }
+
+    public function show() {
+        $this->showContent(); 
+    }
 }
 ?>
