@@ -1,8 +1,6 @@
 <?php
 require ("ProductsDoc.php");
 class CartDoc extends ProductsDoc {
-
-
       
     private function addToOrderButton($id) {
         echo "<form action='index.php' method='POST'>
@@ -57,16 +55,12 @@ class CartDoc extends ProductsDoc {
         </form>";
     }
       
-    protected function showContent($data) {
+    protected function showContent() {
         echo "<h2>Shopping Cart</h2>
         <p>Here are the items in your shopping cart:</p>";
 
         $this->showShoppingCartContent($data);
         $this->showOrderButton();
-    }
-
-    public function show($data) {
-        $this->showContent($data);
     }
 }
 ?>

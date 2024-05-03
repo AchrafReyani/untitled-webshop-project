@@ -1,3 +1,3 @@
 <?php
-//TODO cannot be initiated so can't test?
+//can't test abstract class?
 ?>

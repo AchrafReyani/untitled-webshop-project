@@ -51,6 +51,7 @@ class BasicDoc extends HtmlDoc {
     
     protected function showBodyContent() {
         $this->showMenu();
+        $this->showContent();//main function
         $this->showFooter();
     }
 
@@ -60,13 +61,8 @@ class BasicDoc extends HtmlDoc {
         $this->showTitle();
     }
 
-    private function showContent($data) {
+    protected function showContent() {
         //empty?
-    }
-
-    //will this show be called?
-    public function show($data) {
-        echo "it works";
     }
 }
 ?>

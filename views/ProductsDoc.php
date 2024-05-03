@@ -2,8 +2,8 @@
 require "BasicDoc.php";
 abstract class ProductsDoc extends BasicDoc {
 
-    public function show($data) {
-        $this->showContent($data); 
+    private function showContent() {
+        //TODO
     }
 }
 ?>

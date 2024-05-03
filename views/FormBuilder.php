@@ -1,4 +1,5 @@
 <?php   //TODO needs to be compatible with any type of form (login register contact ect)
+//should it extend basic doc? probably not
 abstract class FormBuilder {
     protected function showFormStart($title, $paragraph, $action, $method) {
         echo "<h2>".$title."</h2>
@@ -41,11 +42,5 @@ abstract class FormBuilder {
     private function textAreaField() {
 
     }
-
-    //Is this necessary? (probably not)
-    public function show() {
-
-    }
-
 }
 ?>

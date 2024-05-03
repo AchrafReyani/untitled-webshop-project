@@ -1,6 +1,6 @@
 <?php
 include_once 'FormBuilder.php';
-class ContactDoc {
+class ContactDoc extends BasicDoc{
 
 
     private function validateForm() { 
@@ -189,8 +189,8 @@ class ContactDoc {
         //TODO
     }
 
-    public function show($data) {
-        $this->showContent($data);
-    }
+    //public function show($data) {
+    //    $this->showContent($data);
+    //}
 }
 ?>

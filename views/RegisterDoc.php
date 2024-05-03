@@ -87,10 +87,5 @@ class RegisterDoc {
         showRegisterEnd();
     }
 
-
-    public function show($data) {
-        $this->showContent($data);
-    }
-
 }
 ?>

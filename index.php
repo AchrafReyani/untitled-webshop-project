@@ -19,62 +19,62 @@ function showContent($data) {
     case 'Home';
       include_once "views/HomeDoc.php";
       $view = new HomeDoc($data);
-      $view -> show($data);
+      $view -> show();
       break;
     case 'About';
       include_once "views/AboutDoc.php";
       $view = new AboutDoc($data);
-      $view -> show($data);
+      $view -> show();
       break;
     case 'Contact';
       include_once "views/ContactDoc.php";
       $view = new ContactDoc($data);
-      $view -> show($data);
+      $view -> show();
       break;
     case 'ThankyouForm';
       include_once "views/ThankYouDoc.php";
       $view = new ThankYouDoc($data);
-      $view -> show($data);
+      $view -> show();
       break;
     case 'Register';
       include_once "views/RegisterDoc.php";
       $view = new RegisterDoc($data);
-      $view -> show($data);
+      $view -> show();
       break;
     case 'Login';
-    include_once "views/LoginDoc.php";
+      include_once "views/LoginDoc.php";
       $view = new LoginDoc($data);
-      $view -> show($data);
+      $view -> show();
       break;
     case 'ChangePassword';
       include_once "views/ChangePasswordDoc.php";
       $view = new ChangePasswordDoc($data);
-      $view -> show($data);
+      $view -> show();
       break;
     case 'Webshop';
       include_once "views/WebshopDoc.php";
       $view = new WebshopDoc($data);
-      $view -> show($data);
+      $view -> show();
       break;
     case 'Product';
       include_once "views/DetailDoc.php";
       $view = new DetailDoc($data);
-      $view -> show($data);
+      $view -> show();
       break;
     case 'ShoppingCart';
       include_once "views/CartDoc.php";
       $view = new CartDoc($data);
-      $view -> show($data);
+      $view -> show();
       break;
     case 'ThankyouOrder';
       include_once "views/ThankYou.php";
       $view = new ThankYouDoc($data);
-      $view -> show($data);
+      $view -> show();
       break;
     default; 
       include_once "views/HomeDoc.php";
       $view = new HomeDoc($data);
-      $view -> show($data);
+      $view -> show();
   }
 }
 
@@ -101,7 +101,6 @@ function getRequestedPage() {
   return $page;
 }
 
-//TODO this probably shouldn't be here
 function getWebshopProducts() {
   include_once 'db.php';
   $products = getAllProducts();
@@ -109,13 +108,11 @@ function getWebshopProducts() {
   return ['products' => $products];
 }
 
-//TODO this probably shouldn't be here
 function handleCartActions() {
   if (isset($_POST['action'])) {
     $action = $_POST['action'];
   } else {
-    // Handle the case where 'action' is not set (optional)
-    $action = "";  // Or set a default value
+    $action = "";
   }
   switch ($action)
   {
@@ -136,7 +133,6 @@ function handleCartActions() {
   return $action;
 }
 
-//handlecartactions functie maken
 function processRequest($page) {
   switch($page)
 	{
@@ -225,13 +221,13 @@ function showGeneralError($data) {
 
 
 function showResponsePage($data) {
-	beginDocument();
-	showHeader();
+	beginDocument();//TODO Call from views
+	showHeader();//TODO Call from views
 	showMenu($data);
   showGeneralError($data);
 	showContent($data); //use the data received to fill in unifinished form with valid data
-	showFooter();
-	endDocument();
+	showFooter();//TODO Call from views
+	endDocument();//TODO Call from views
 }
 
 function logError($msg) {

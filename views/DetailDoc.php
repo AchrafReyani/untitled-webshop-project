@@ -1,7 +1,7 @@
 <?php
 require ("ProductsDoc.php");
 class DetailDoc extends ProductsDoc {
-    protected function showContent($data) {
+    protected function showContent() {
         echo "<h2>Product details</h2>";
         // Get product ID from URL
         $id = isset($_GET['id']) ? (int) $_GET['id'] : 0;
@@ -34,9 +34,6 @@ class DetailDoc extends ProductsDoc {
         echo "</div>";
       }
     }
-    }
-    public function show($data) {
-        $this->showContent($data);
     }
 }
 ?>

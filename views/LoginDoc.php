@@ -82,9 +82,5 @@ class LoginDoc {
         showLoginEnd('loginError', $data);
         //TODO
     }
-
-    public function show($data) {
-        $this->showContent($data); 
-    }
 }
 ?>

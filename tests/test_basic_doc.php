@@ -1,6 +1,6 @@
 <?php
 include_once "../views/BasicDoc.php";
-$data = array ('page' => 'Basic');
+$data = array ('page' => 'home');
 $view = new BasicDoc($data);
-$view -> show($data);
+$view -> show();
 ?>

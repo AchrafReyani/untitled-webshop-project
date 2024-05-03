@@ -57,8 +57,5 @@ class WebshopDoc extends ProductsDoc {
         $this->showWebshopContent($data);
     }
 
-    public function show($data) {
-      $this->showContent($data); 
-  }
 }
 ?>

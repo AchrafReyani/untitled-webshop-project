@@ -108,9 +108,5 @@ class ChangePasswordDoc {
         showChangePasswordField("confirmNewPassword", "Confirm new password", $data);
         showChangePasswordEnd($data);   
     }
-
-    public function show($data) {
-        $this->showContent($data);
-    }
 }
 ?>
