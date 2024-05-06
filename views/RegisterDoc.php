@@ -62,12 +62,12 @@ class RegisterDoc {
         <input name=\"page\" value=\"Register\" type=\"hidden\">";
       }
       
-      private function showRegisterField($fieldName, $label, $data) {
+      private function showRegisterField($fieldName, $label) {
         echo "
         <div>
         <label for=\"$fieldName\">$label:</label>
-        <input type=\"text\" name=\"$fieldName\" value=\"". $data[$fieldName]."\">
-        <span>* " . $data[$fieldName . "Error"]  . "</span>
+        <input type=\"text\" name=\"$fieldName\" value=\"". $this->data[$fieldName]."\">
+        <span>* " . $this->data[$fieldName . "Error"]  . "</span>
         </div>";
       }
       
@@ -78,13 +78,13 @@ class RegisterDoc {
         </form>";
       }
 
-    protected function showContent($data) {
-        showRegisterStart();
-        showRegisterField('name', 'Name', $data);
-        showRegisterField('email', 'Email', $data);
-        showRegisterField('password', 'Password', $data);
-        showRegisterField('confirm_password', 'Confirm Password', $data);
-        showRegisterEnd();
+    protected function showContent() {
+        $this->showRegisterStart();
+        $this->showRegisterField('name', 'Name');
+        $this->showRegisterField('email', 'Email');
+        $this->showRegisterField('password', 'Password');
+        $this->showRegisterField('confirm_password', 'Confirm Password');
+        $this->showRegisterEnd();
     }
 
 }

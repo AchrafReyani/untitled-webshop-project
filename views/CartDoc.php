@@ -21,12 +21,12 @@ class CartDoc extends ProductsDoc {
     }
       
     //display product name, quantity, small image, price, and total price of the whole order
-    private function showShoppingCartContent($data) {
+    private function showShoppingCartContent() {
         if (!isset($_SESSION['shoppingCart']) || empty($_SESSION['shoppingCart'])) {
             echo 'Your shopping cart is empty.';
         } else {
             $shoppingCart = getShoppingCart();
-            $products = $data['products'];
+            $products = $this->data['products'];
             $total = 0;
           
             //loop through each item in the shoppingcart and check the database for matching ids
@@ -59,7 +59,7 @@ class CartDoc extends ProductsDoc {
         echo "<h2>Shopping Cart</h2>
         <p>Here are the items in your shopping cart:</p>";
 
-        $this->showShoppingCartContent($data);
+        $this->showShoppingCartContent();
         $this->showOrderButton();
     }
 }

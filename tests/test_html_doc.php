@@ -1,8 +1,6 @@
 <?php
 include_once "../views/HtmlDoc.php";
-
-//data array maken met info om in de object te doen
-
+//no data array in constructor
 $view = new HtmlDoc();
 $view -> show();
 ?>
