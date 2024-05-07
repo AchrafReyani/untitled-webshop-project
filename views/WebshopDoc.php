@@ -11,14 +11,14 @@ class WebshopDoc extends ProductsDoc {
         </form>";
       }
       
-      private function showWebshopContent($data) {
+      private function showWebshopContent() {
         echo "<h2>Webshop</h2>";
         try {
         //require_once 'db.php';
         //$result = getAllProducts();
       
         echo "<div class = 'products'>";
-        foreach ($data['products'] as $product) {
+        foreach ($this->data['products'] as $product) {
           $id = $product["id"];
           $name = $product["name"];
           //$description = $row["description"];
@@ -49,12 +49,12 @@ class WebshopDoc extends ProductsDoc {
         return [ 'generalError' => $generalError ];
       }
       
-      private function showWebshopPage($data) {
+      private function showWebshopPage() {
           
       }
 
-    protected function showContent($data) {
-        $this->showWebshopContent($data);
+    protected function showContent() {
+        $this->showWebshopContent();
     }
 
 }

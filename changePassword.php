@@ -89,7 +89,7 @@ function showChangePasswordField($fieldName, $label, $data) {
 }
 
 function showChangePasswordPage($data) {
-  showChangePasswordStart();
+  $this->showChangePasswordStart();
   showChangePasswordField("currentPassword", "Current password", $data);
   showChangePasswordField("newPassword", "New password", $data);
   showChangePasswordField("confirmNewPassword", "Confirm new password", $data);

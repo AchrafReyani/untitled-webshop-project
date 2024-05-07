@@ -221,13 +221,13 @@ function showGeneralError($data) {
 
 
 function showResponsePage($data) {
-	beginDocument();//TODO Call from views
-	showHeader();//TODO Call from views
-	showMenu($data);
+	//beginDocument();//TODO Call from views
+	//showHeader();//TODO Call from views
+	//showMenu($data);
   showGeneralError($data);
 	showContent($data); //use the data received to fill in unifinished form with valid data
-	showFooter();//TODO Call from views
-	endDocument();//TODO Call from views
+	//showFooter();//TODO Call from views
+	//endDocument();//TODO Call from views
 }
 
 function logError($msg) {
