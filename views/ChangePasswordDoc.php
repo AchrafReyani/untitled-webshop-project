@@ -1,6 +1,6 @@
 <?php
-include_once 'FormBuilder.php';
-class ChangePasswordDoc extends FormBuilder {  
+include_once 'FormsDoc.php';
+class ChangePasswordDoc extends FormsDoc {  
   protected function showContent() {
     $this->showFormStart("Change Password", "Please enter your old password and your new password twice.", "index.php", "POST");
     $this->showHiddenField("page", "ChangePassword");
