@@ -244,4 +244,11 @@ $page = getRequestedPage();
 $data = processRequest($page);
 var_dump($data);//for testing
 showContent($data);
+
+/* index.php after implementing the mvc
+session_start();
+require_once("PageController.php");
+$controller = new PageController();
+$controller->handleRequest();
+*/
 ?>

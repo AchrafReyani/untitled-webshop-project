@@ -1,7 +1,7 @@
 <?php   //TODO needs to be compatible with any type of form (login register contact ect)
 //should it extend basic doc? the form/login/register/change password classes already extend basic doc
 include_once "BasicDoc.php";
-abstract class FormBuilder extends BasicDoc {
+abstract class FormsDoc extends BasicDoc {
     public function showFormStart($title, $paragraph, $action, $method) {
         echo "<h2>".$title."</h2>
         <p>".$paragraph."</p>

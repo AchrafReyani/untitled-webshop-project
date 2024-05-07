@@ -1,6 +1,6 @@
 <?php
-include_once 'FormBuilder.php';
-class RegisterDoc extends FormBuilder {
+include_once 'FormsDoc.php';
+class RegisterDoc extends FormsDoc {
     protected function showContent() {
         $this->showFormStart("Register", "Please enter your details to register.", "index.php", "POST");
         $this->showHiddenField("page", "Register");

@@ -1,9 +1,7 @@
 <?php
-include_once 'FormBuilder.php';
-class ContactDoc extends FormBuilder {
+include_once 'FormsDoc.php';
+class ContactDoc extends FormsDoc {
  
-      //replace this function with the formbuilder functions
-      //right now this also has the logic for which errors to display, should probably not be here
       private function showFormFieldTemp($fieldName, $label, $options = NULL) {
         if ($options == NULL) {
           echo "

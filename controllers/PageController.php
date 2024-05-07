@@ -4,7 +4,6 @@ class PageController {
 
     public function __construct() {
         $this->model = newPageModel(NULL);
-
     }
 
     public function handleRequest() {
