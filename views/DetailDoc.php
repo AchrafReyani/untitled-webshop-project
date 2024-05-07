@@ -1,17 +1,18 @@
 <?php
 require ("ProductsDoc.php");
+include_once "../sessionManager.php";
 class DetailDoc extends ProductsDoc {
     protected function showContent() {
         echo "<h2>Product details</h2>";
         // Get product ID from URL
-        $id = isset($_GET['id']) ? (int) $_GET['id'] : 0;
+        $id = isset($_GET['id']) ? (int) $_GET['id'] : 0;//change value from 0 to 1-5 to test detail page
         //echo "Product ID: $id";
 
         // Connect to database and get product details
         //require_once 'db.php';
         //$result = getProductDetails($id);
 
-        foreach ($data['products'] as $product) {
+        foreach ($this->data['products'] as $product) {
             if ($product["id"] == $id) {
             $name = $product["name"];
             $description = $product["description"];

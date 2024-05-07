@@ -1,5 +1,6 @@
 <?php
 require ("ProductsDoc.php");
+include_once "../sessionManager.php";
 class WebshopDoc extends ProductsDoc {
       
       private function addToCartButton($id) {
