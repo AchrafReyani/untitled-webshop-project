@@ -1,17 +1,18 @@
 <?php   //TODO needs to be compatible with any type of form (login register contact ect)
 //should it extend basic doc? the form/login/register/change password classes already extend basic doc
-abstract class FormBuilder {
-    protected function showFormStart($title, $paragraph, $action, $method) {
+include_once "BasicDoc.php";
+abstract class FormBuilder extends BasicDoc {
+    public function showFormStart($title, $paragraph, $action, $method) {
         echo "<h2>".$title."</h2>
         <p>".$paragraph."</p>
         <form action=\"".$action."\" method=\"".$method."\">";
     }
 
-    protected function showHiddenField($name, $value) {
+    public function showHiddenField($name, $value) {
         echo "<input name=\"".$name."\" value=\"".$value."\" type=\"hidden\">";
     }
 
-    protected function showFormField() {
+    public function showFormField() {
         echo "<div>
         <label for=\"$fieldName\">$label:</label>
         <input type=\"text\" name=\"$fieldName\" value=\"". $data[$fieldName]."\">
@@ -20,22 +21,22 @@ abstract class FormBuilder {
     }
 
     //no arguments
-    protected function showFormEnd() {
+    public function showFormEnd() {
         echo "<div>
         <input type=\"submit\" value=\"Send\">
         </div>
         </form>";
     }
 
-    private function inputField() {
-        
-    }
-
-    private function selectField() {
+    public function inputField() {
 
     }
 
-    private function radioField($text, $name, $options) {
+    public function selectField() {
+
+    }
+
+    public function radioField($text, $name, $options) {
         echo "<div><p>".$text."</p>";
         foreach ($options as $option)  {
             $optionId = lcfirst($option) . "-"."$name"; // Generate unique ID for each radio button
@@ -46,7 +47,7 @@ abstract class FormBuilder {
         echo "</div>";
     }
 
-    private function textAreaField() {
+    public function textAreaField() {
 
     }
 }

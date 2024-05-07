@@ -1,7 +1,6 @@
 <?php
 include_once 'FormBuilder.php';
-include_once 'BasicDoc.php';
-class LoginDoc extends BasicDoc {
+class LoginDoc extends FormBuilder {
       
   private function showLoginStart() {
     echo "<h2>Login</h2>
