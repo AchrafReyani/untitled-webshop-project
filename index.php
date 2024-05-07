@@ -213,23 +213,6 @@ function processRequest($page) {
     return $data;
 }
 
-function showGeneralError($data) {
-  if (!empty($data['generalError'])) {
-    echo '<div class="error">' . $data['generalError'] . '</div>';
-  }
-}
-
-
-function showResponsePage($data) {
-	//beginDocument();//TODO Call from views
-	//showHeader();//TODO Call from views
-	//showMenu($data);
-  showGeneralError($data);
-	showContent($data); //use the data received to fill in unifinished form with valid data
-	//showFooter();//TODO Call from views
-	//endDocument();//TODO Call from views
-}
-
 function logError($msg) {
   echo "LOGGING TO THE SERVER: " . $msg;
 }
@@ -238,5 +221,5 @@ function logError($msg) {
 $page = getRequestedPage();
 $data = processRequest($page);
 var_dump($data);//for testing
-showResponsePage($data);
+showContent($data);
 ?>

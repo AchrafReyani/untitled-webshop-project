@@ -59,17 +59,25 @@ class BasicDoc extends HtmlDoc {
         //gets defined in child classes
     }
 
-    protected function showHeader() {
+    private function showHeader() {
         echo "<header><h1>Achraf's Webshop</h1></header>";
     }
+
+    private function showGeneralError() {
+        if (!empty($this->data['generalError'])) {
+          echo '<div class="error">' . $this->data['generalError'] . '</div>';
+        }
+      }
     
     protected function showBodyContent() {
         $this->showHeadContent();
         $this->showHeader();
         $this->showMenu();
+        $this->showGeneralError();
         $this->showContent();//main function
         $this->showFooter();
     }
+
 
 
 }
