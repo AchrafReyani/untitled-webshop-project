@@ -9,27 +9,27 @@ class ChangePasswordDoc extends BasicDoc {
     <input name=\"page\" value=\"ChangePassword\" type=\"hidden\">";
   }
 
-  private function showChangePasswordEnd($data) {
+  private function showChangePasswordEnd() {
     echo "<div>
     <input type=\"submit\" value=\"Send\">
     </div>
     </form>";
   }
 
-  private function showChangePasswordField($fieldName, $label, $data) {
+  private function showChangePasswordField($fieldName, $label) {
     echo "
     <div>
     <label for=\"$fieldName\">$label:</label>
-    <input type=\"text\" name=\"$fieldName\" value=\"". $data[$fieldName]."\">
-    <span>* " . $data[$fieldName . "Error"]  . "</span>
+    <input type=\"text\" name=\"$fieldName\" value=\"". $this->data[$fieldName]."\">
+    <span>* " . $this->data[$fieldName . "Error"]  . "</span>
     </div>";
   }
 
   protected function showContent() {
     echo "<h2>Change Password</h2>";
-    $this->showChangePasswordField("currentPassword", "Current password", $data);
-    $this->showChangePasswordField("newPassword", "New password", $data);
-    $this->showChangePasswordField("confirmNewPassword", "Confirm new password", $data);
+    $this->showChangePasswordField("currentPassword", "Current password");
+    $this->showChangePasswordField("newPassword", "New password");
+    $this->showChangePasswordField("confirmNewPassword", "Confirm new password");
     $this->showChangePasswordEnd();   
   }
 }

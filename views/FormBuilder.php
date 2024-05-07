@@ -1,5 +1,5 @@
 <?php   //TODO needs to be compatible with any type of form (login register contact ect)
-//should it extend basic doc? probably not
+//should it extend basic doc? the form/login/register/change password classes already extend basic doc
 abstract class FormBuilder {
     protected function showFormStart($title, $paragraph, $action, $method) {
         echo "<h2>".$title."</h2>
@@ -28,15 +28,22 @@ abstract class FormBuilder {
     }
 
     private function inputField() {
-
+        
     }
 
     private function selectField() {
 
     }
 
-    private function radioField() {
-
+    private function radioField($text, $name, $options) {
+        echo "<div><p>".$text."</p>";
+        foreach ($options as $option)  {
+            $optionId = lcfirst($option) . "-"."$name"; // Generate unique ID for each radio button
+            echo "<label for=\"$optionId\">$option<\label>";
+            echo "<input type=\"radio\" id=\"$optionId\" name=\"$name\" value=\"$method\">";
+        }
+        //error message?
+        echo "</div>";
     }
 
     private function textAreaField() {
