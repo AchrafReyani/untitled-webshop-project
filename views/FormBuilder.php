@@ -12,11 +12,11 @@ abstract class FormBuilder extends BasicDoc {
         echo "<input name=\"".$name."\" value=\"".$value."\" type=\"hidden\">";
     }
 
-    public function showFormField() {
+    public function showFormField($fieldName, $label) {
         echo "<div>
         <label for=\"$fieldName\">$label:</label>
-        <input type=\"text\" name=\"$fieldName\" value=\"". $data[$fieldName]."\">
-        <span>* " . $data[$fieldName . "Error"]  . "</span>
+        <input type=\"text\" name=\"$fieldName\" value=\"". $this->data[$fieldName]."\">
+        <span>* " . $this->data[$fieldName . "Error"]  . "</span>
         </div>";
     }
 
