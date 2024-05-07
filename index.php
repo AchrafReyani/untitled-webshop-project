@@ -101,6 +101,28 @@ function getRequestedPage() {
   return $page;
 }
 
+//issue #20
+function getWebShopProduct() {
+  $product = NULL;
+  $generalError = "";
+
+  try {
+    //display nothing (id=0) when no id has been set
+    $id = isset($_GET['id']) ? (int) $_GET['id'] : 0;
+    if ($id != 0) {
+      include_once 'db.php';
+      $product = getProductById($id);
+    }
+    if(empty($product)) {
+      $generalError = "The product with id: ".$id." was not found.";
+    }
+  } catch (Exception $e) {
+      $generalError = "A technical error ocurred, please come back later";
+      logError("GetWebshopProductFailed: " . $e->getMessage());
+  }
+  return ['product' => $product, 'generalError' => $generalError];
+}
+
 function getWebshopProducts() {
   include_once 'db.php';
   $products = getAllProducts();
