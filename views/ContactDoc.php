@@ -1,7 +1,6 @@
 <?php
 include_once 'FormsDoc.php';
 class ContactDoc extends FormsDoc {
- 
       private function showFormFieldTemp($fieldName, $label, $options = NULL) {
         if ($options == NULL) {
           echo "

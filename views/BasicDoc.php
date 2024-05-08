@@ -1,7 +1,6 @@
 <?php
 require('HtmlDoc.php');
 class BasicDoc extends HtmlDoc {
-
     protected $data = NULL;
 
     public function __construct($mydata) {

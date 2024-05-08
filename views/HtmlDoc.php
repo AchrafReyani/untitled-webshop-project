@@ -13,7 +13,6 @@ class HtmlDoc {
         echo "<head>";
     }
 
-    //todo
     protected function showHeadContent() {
         echo "";
     }
@@ -26,7 +25,6 @@ class HtmlDoc {
         echo "<body>";
     }
 
-    //todo
     protected function showBodyContent() {
         echo "";
     }
@@ -45,7 +43,5 @@ class HtmlDoc {
         $this->showBodyEnd();
         $this->showHtmlEnd();
     }
-}//this->$data
-
-//
+}
 ?>

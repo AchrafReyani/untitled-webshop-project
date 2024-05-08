@@ -1,7 +1,6 @@
 <?php
 require ("ProductsDoc.php");
-class CartDoc extends ProductsDoc {
-      
+class CartDoc extends ProductsDoc { 
     private function addToOrderButton($id) {
         echo "<form action='index.php' method='POST'>
         <input type='hidden' name='action' value='addToShoppingCart'>
