@@ -44,15 +44,15 @@ class UserModel extends PageModel {
     public function validateLogin() {
         if ($_SERVER ['REQUEST_METHOD'] === 'POST') {
         if (empty($_POST["email"])) {
-          $emailError = "Email is required";
+          $this->emailError = "Email is required";
         } else {
-            $email = $_POST['email'];
+            $this->email = $_POST['email'];
           }
       
         if (empty($_POST["password"])) {
-          $passwordError = "Password is required";
+          $this->passwordError = "Password is required";
         } else {
-            $password = $_POST['password'];
+            $this->password = $_POST['password'];
           }
       
         //logic to check file for valid userinfo
@@ -62,20 +62,20 @@ class UserModel extends PageModel {
         //store the hashed password from the database
         $hashed_password = $user['pwd'];
         //if account is found and password matches hashed password
-        if (password_verify($password, $hashed_password)) {
+        if (password_verify($this->password, $hashed_password)) {
           //echo "log in was succesfull";
           $username = $user['username'];
-          $userid = $user['id'];
-          $valid = true;
+          $this->userid = $user['id'];
+          $this->valid = true;
             
         } else {
             //echo "login failed";
             if (!empty($_POST["password"]) && !empty($_POST["email"])) {
-              $loginError = "Invalid email or password";
+              $this->loginError = "Invalid email or password";
             }
           }
           } catch (Exception $e) {
-            $generalError = "Could not connect to the database, You cannot login at this time. Please try again later.";
+            $this->generalError = "Could not connect to the database, You cannot login at this time. Please try again later.";
             //logError("Authentication failed for user ' . $email . ', SQLError: ' . $e->getMessage()'");
             }
         }
@@ -88,44 +88,44 @@ class UserModel extends PageModel {
            
         //if email is empty give required error, if it exists check for duplicate emails in the database. 
         if (empty($_POST["email"])) {
-          $emailError = "Email is required";
+          $this->emailError = "Email is required";
         } else {
-          $email = $_POST['email'];
+          $this->email = $_POST['email'];
           require_once 'db.php';
-          $count = getEmailCount($email); //get the number of rows that contain the email address. 
+          $count = getEmailCount($this->email); //get the number of rows that contain the email address. 
           if ($count > 0) { 
           //Action to take if email exists 
-          $emailError = "Email already exists";
+          $this->emailError = "Email already exists";
           } 
           }
       
           if (empty($_POST["name"])) {
-            $nameError = "Name is required";
+            $this->nameError = "Name is required";
           } else {
-            $name = $_POST['name'];
+            $this->name = $_POST['name'];
           }
       
           if (empty($_POST["password"])) {
-            $passwordError = "Password is required";
+            $this->passwordError = "Password is required";
           } else {
-            $password = $_POST['password'];
+            $this->password = $_POST['password'];
           }
       
           if (empty($_POST["confirm_password"])) {
-            $confirmPasswordError = "Confirm password is required";
+            $this->confirmPasswordError = "Confirm password is required";
           } else {
-            $confirmPassword = $_POST['confirm_password'];
+            $this->confirmPassword = $_POST['confirm_password'];
           }
       
           //check if passwords match
-          if ($password != $confirmPassword && ($password != "" && $confirmPassword != "")) {
-            $passwordError = "Passwords do not match";
-            $confirmPasswordError = "Passwords do not match";
+          if ($this->password != $this->confirmPassword && ($this->password != "" && $this->confirmPassword != "")) {
+            $this->passwordError = "Passwords do not match";
+            $this->confirmPasswordError = "Passwords do not match";
           }
         
              //if no errors were found set valid to true  
-            if ($emailError == "" && $nameError == "" && $passwordError == "" && $confirmPasswordError == "") {
-              $valid = true;
+            if ($this->emailError == "" && $this->nameError == "" && $this->passwordError == "" && $this->confirmPasswordError == "") {
+              $this->valid = true;
             }
         }
       }
@@ -134,36 +134,36 @@ class UserModel extends PageModel {
         if ($_SERVER ['REQUEST_METHOD'] === 'POST') {
           //print error messages for empty fields
           if (empty($_POST["currentPassword"])) {
-            $currentPasswordError = "Current password is required";
+            $this->currentPasswordError = "Current password is required";
           } else {
-          $currentPassword = $_POST['currentPassword'];
+          $this->currentPassword = $_POST['currentPassword'];
           }
       
           if (empty($_POST["newPassword"])) {
-            $newPasswordError = "New password is required";
+            $this->newPasswordError = "New password is required";
             } else {
-              $newPassword = $_POST['newPassword'];
+              $this->newPassword = $_POST['newPassword'];
               }
       
             if (empty($_POST["confirmNewPassword"])) {
-              $confirmNewPasswordError = "Confirm new password is required";
+              $this->confirmNewPasswordError = "Confirm new password is required";
               } else {
-                $confirmNewPassword = $_POST['confirmNewPassword'];
+                $this->confirmNewPassword = $_POST['confirmNewPassword'];
               }
       
               //check if passwords match
-            if ($newPassword != $confirmNewPassword && ($newPassword != "" && $confirmNewPassword != "")) {
-              $newPasswordError = "New passwords do not match";
-              $confirmNewPasswordError = "New passwords do not match";
+            if ($this->newPassword != $this->confirmNewPassword && ($this->newPassword != "" && $this->confirmNewPassword != "")) {
+              $this->newPasswordError = "New passwords do not match";
+              $this->confirmNewPasswordError = "New passwords do not match";
             }
       
               //check if current password is not the same as new password
-            if ($currentPassword == $newPassword) {
-              $newPasswordError = "New password cannot be the same as current password";
+            if ($this->currentPassword == $this->newPassword) {
+              $this->newPasswordError = "New password cannot be the same as current password";
             }
       
               //only change the password when there are no errors and the current password is correct
-            if (!$currentPasswordError && !$newPasswordError && !$confirmNewPasswordError) {
+            if (!$this->currentPasswordError && !$this->newPasswordError && !$this->confirmNewPasswordError) {
               //connect to database
               //make db connection
                 
@@ -173,7 +173,7 @@ class UserModel extends PageModel {
               //get the hashed password from the database
               $hashed_password = $row['pwd'];
               
-              if (password_verify($currentPassword, $hashed_password)) {
+              if (password_verify($this->currentPassword, $hashed_password)) {
                 // echo "password is correct";
                 //hash new password
       
@@ -182,10 +182,10 @@ class UserModel extends PageModel {
                 //insert new password into database
                 updatePassword($_SESSION['userid'], $hashedPassword);
                   
-                $valid = true;
+                $this->valid = true;
                   
               } else {
-                $currentPasswordError = "Current password is incorrect";
+                $this->currentPasswordError = "Current password is incorrect";
                 }
             }
           }
@@ -193,13 +193,6 @@ class UserModel extends PageModel {
       }
 
       function validateForm() { 
-        //add empty values to variables
-        $pronouns = $name = $email = $phonenumber = $street = $housenumber = $postalcode =
-        $city = $communication = $message = "";
-      
-        //initiate error message variables
-        $pronounsError = $nameError = $emailError = $phonenumberError = $streetError = $housenumberError = $postalcodeError = $cityError = $communicationError = $messageError = "";
-        $valid = false;
       
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       
@@ -207,72 +200,72 @@ class UserModel extends PageModel {
       
           //mandatory fields
           if (empty($_POST["pronouns"])) {
-            $pronounsError = "Pronouns are required";
+            $this->pronounsError = "Pronouns are required";
           } else {
-            $pronouns = $_POST['pronouns'];
+            $this->pronouns = $_POST['pronouns'];
           }
       
           if (empty($_POST["name"])) {
-            $nameError = "Name is required";
+            $this->nameError = "Name is required";
           } else {
-            $name = $_POST['name'];
+            $this->name = $_POST['name'];
           }
       
           if (empty($_POST["communication"])) {
-            $communicationError = "Communication method is required";
+            $this->communicationError = "Communication method is required";
           } else {
-            $communication = $_POST['communication'];
+            $this->communication = $_POST['communication'];
           }
       
           if (empty($_POST["message"])) {
-            $messageError = "Message is required";
+            $this->messageError = "Message is required";
           } else {
-            $message = $_POST['message'];
+            $this->message = $_POST['message'];
           }
       
             //send error message depending on the communication method
       
-          if ($communication == "email") {
+          if ($this->communication == "email") {
             echo 'email was communication';
             if (empty($_POST["email"])) {
-              $emailError = "Email is required";
+              $this->emailError = "Email is required";
             } else {
-            $email = $_POST['email'];
+            $this->email = $_POST['email'];
             } 
-          } else if ($communication == "phone") {
+          } else if ($this->communication == "phone") {
               if (empty($_POST["phonenumber"])) {
-                $phonenumberError = "Phone number is required";
+                $this->phonenumberError = "Phone number is required";
               } else {
-                $phonenumber = $_POST['phonenumber'];
+                $this->phonenumber = $_POST['phonenumber'];
               } 
-              }else if ($communication == "postal") {
+              }else if ($this->communication == "postal") {
       
               if (empty($_POST["street"])) {
-                $streetError = "Street is required";
+                $this->streetError = "Street is required";
               } 
               else {
-                $street = $_POST['street'];
+                $this->street = $_POST['street'];
               }
         
               if (empty($_POST["housenumber"])) {
-                $housenumberError = "House number is required";
+                $this->housenumberError = "House number is required";
               } 
               else {
-                $housenumber = $_POST['housenumber'];
+                $this->housenumber = $_POST['housenumber'];
               }
         
               if (empty($_POST["postalcode"])) {
-                $postalcodeError = "Postal code is required";
+                $this->postalcodeError = "Postal code is required";
               } 
               else {
-                $postalcode = $_POST['postalcode'];
+                $this->postalcode = $_POST['postalcode'];
               }
         
               if (empty($_POST["city"])) {
-                $cityError = "City is required";
+                $this->cityError = "City is required";
               } 
               else {
-                $city = $_POST['city'];
+                $this->city = $_POST['city'];
               }
             
             }
@@ -283,21 +276,21 @@ class UserModel extends PageModel {
             }
       
             //TODO check to see if this can be made smaller
-          if ($communication == "email" && empty($_POST["email"])) {
-              $emailError = "Please enter a valid email address";
-            } else if ($communication == "email" && !empty($_POST["email"]) &&  $requiredFields ) {
-                $valid  = true;
+          if ($this->communication == "email" && empty($_POST["email"])) {
+              $this->emailError = "Please enter a valid email address";
+            } else if ($this->communication == "email" && !empty($_POST["email"]) &&  $requiredFields ) {
+                $this->valid  = true;
             }
       
-          if ($communication == "phone" && empty($_POST["phonenumber"])) {
-              $phonenumberError = "Please enter a valid phone number";
-            } else if ($communication == "phone" && !empty($_POST["phonenumber"]) &&  $requiredFields)
+          if ($this->communication == "phone" && empty($_POST["phonenumber"])) {
+              $this->phonenumberError = "Please enter a valid phone number";
+            } else if ($this->communication == "phone" && !empty($_POST["phonenumber"]) &&  $requiredFields)
             {
                 $valid = true;
             }
             
-            if ($communication == "postal" && !empty($_POST["street"]) && !empty($_POST["housenumber"]) && !empty($_POST["postalcode"]) && !empty($_POST["city"]) &&  !empty($_POST["pronouns"]) && !empty($_POST["name"]) && !empty($_POST["message"])) { 
-            $valid = true;
+            if ($this->communication == "postal" && !empty($_POST["street"]) && !empty($_POST["housenumber"]) && !empty($_POST["postalcode"]) && !empty($_POST["city"]) &&  !empty($_POST["pronouns"]) && !empty($_POST["name"]) && !empty($_POST["message"])) { 
+            $this->valid = true;
             }
           }
       }
@@ -316,7 +309,7 @@ class UserModel extends PageModel {
     //same name as the one in the db
     public function registerNewUser() {
         include_once "./db.php";
-        registerNewUser($email, $name, $password);
+        registerNewUser($this->email, $this->name, $this->password);
     }
 
     public function doLoginUser() {
