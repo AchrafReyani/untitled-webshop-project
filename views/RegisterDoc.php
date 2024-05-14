@@ -7,7 +7,7 @@ class RegisterDoc extends FormsDoc {
         $this->showTextField('name', 'Name');
         $this->showTextField('email', 'Email');
         $this->showTextField('password', 'Password');
-        $this->showTextField('confirm_password', 'Confirm Password');
+        $this->showTextField('confirmPassword', 'Confirm Password');
         $this->showFormEnd();
     }
 }

@@ -18,9 +18,9 @@ class PageController {
         $this->model->getRequestedPage();
     }//calls function from the model object
 
-    //business flow code TODO
-    //login, register, change password, contact form, shopping cart, webshop and detail page?
+    //TODO gets called as soon as the page has openend, making errors appear too early
     private function processRequest() {
+        echo "processrequest got called";
         switch($this->model->page) {
             case "Login":
                 include_once "./models/UserModel.php";
@@ -29,6 +29,8 @@ class PageController {
                 if ($this->model->valid) {
                     $this->model->doLoginUser();
                     $this->model->page = "Home";
+                } else {
+                    //not needed?
                 }
                 break;
             case "Register":

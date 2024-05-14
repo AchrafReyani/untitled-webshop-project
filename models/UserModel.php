@@ -1,20 +1,47 @@
 <?php
 class UserModel extends PageModel {
-
-    public $email = ""; //or $meta = array();
-    public $name = ""; //or $values = array();
-    //todo
+    public $email = "";
+    public $name = "";
+    public $password = "";
+    public $confirmPassword = "";
+    public $currentPassword = "";
+    public $newPassword = "";
+    public $confirmNewPassword = "";
+    public $userId = NULL;
+    public $emailError = "";
+    public $nameError = "";
+    public $passwordError = "";
+    public $confirmPasswordError = "";
+    public $currentPasswordError = "";
+    public $newPasswordError = "";
+    public $confirmNewPasswordError = "";
+    public $pronouns = "";
+    public $formName = "";
+    public $formEmail = "";
+    public $phonenumber = "";
+    public $street = "";
+    public $housenumber = "";
+    public $postalcode = "";
+    public $city = "";
+    public $communication = "";
+    public $message = "";
+    public $pronounsError = "";
+    public $formNameError = "";
+    public $formEmailError = "";
+    public $phonenumberError = "";
+    public $streetError = "";
+    public $housenumberError = "";
+    public $postalcodeError = "";
+    public $cityError = "";
+    public $communicationError = "";
+    public $messageError = "";
+    public $valid = false;
 
     public function __construct($pageModel) {
         PARENT::__construct($pageModel);
     }
 
     public function validateLogin() {
-        $email = $password = $username= "";   
-        $loginError = $emailError = $passwordError = $generalError = "";
-        $valid = false;
-        $userid = null;
-      
         if ($_SERVER ['REQUEST_METHOD'] === 'POST') {
         if (empty($_POST["email"])) {
           $emailError = "Email is required";
@@ -52,16 +79,10 @@ class UserModel extends PageModel {
             //logError("Authentication failed for user ' . $email . ', SQLError: ' . $e->getMessage()'");
             }
         }
-        //$valid = true when email and password combination is found in file
-        return [ 'userid' => $userid, 'valid' => $valid, 'email' => $email, 'password' => $password,  'loginError' => $loginError,  
-                    'emailError' => $emailError, 'passwordError' => $passwordError, 'username' => $username, 'generalError' => $generalError];
+        
       }
 
-    public function validateRegistration() {
-        $email = $name = $password = $confirm_password = "";
-        $emailError = $nameError = $passwordError = $confirm_passwordError = "";
-        $valid = false;
-      
+    public function validateRegistration() {    
         if ($_SERVER ['REQUEST_METHOD'] === 'POST') {
         //save input if valid and send error message when not valid
            
@@ -91,30 +112,25 @@ class UserModel extends PageModel {
           }
       
           if (empty($_POST["confirm_password"])) {
-            $confirm_passwordError = "Confirm password is required";
+            $confirmPasswordError = "Confirm password is required";
           } else {
-            $confirm_password = $_POST['confirm_password'];
+            $confirmPassword = $_POST['confirm_password'];
           }
       
           //check if passwords match
-          if ($password != $confirm_password && ($password != "" && $confirm_password != "")) {
+          if ($password != $confirmPassword && ($password != "" && $confirmPassword != "")) {
             $passwordError = "Passwords do not match";
-            $confirm_passwordError = "Passwords do not match";
+            $confirmPasswordError = "Passwords do not match";
           }
         
              //if no errors were found set valid to true  
-            if ($emailError == "" && $nameError == "" && $passwordError == "" && $confirm_passwordError == "") {
+            if ($emailError == "" && $nameError == "" && $passwordError == "" && $confirmPasswordError == "") {
               $valid = true;
             }
         }
-        return [ 'valid' => $valid, 'name' => $name, 'email' => $email, 'password' => $password, 'confirm_password' => $confirm_password, 'passwordError' => $passwordError, 'confirm_passwordError' => $confirm_passwordError, 'nameError' => $nameError, 'emailError' => $emailError];
       }
 
       function validateChangePassword() {
-        $currentPassword = $newPassword = $confirmNewPassword = "";
-        $currentPasswordError = $newPasswordError = $confirmNewPasswordError = "";
-        $valid = false;
-      
         if ($_SERVER ['REQUEST_METHOD'] === 'POST') {
           //print error messages for empty fields
           if (empty($_POST["currentPassword"])) {
@@ -173,7 +189,7 @@ class UserModel extends PageModel {
                 }
             }
           }
-        return [ 'valid' => $valid, 'currentPassword' => $currentPassword, 'newPassword' => $newPassword, 'confirmNewPassword' => $confirmNewPassword,  'currentPasswordError' => $currentPasswordError, 'newPasswordError' => $newPasswordError, 'confirmNewPasswordError' => $confirmNewPasswordError];
+       
       }
 
       function validateForm() { 
@@ -284,14 +300,10 @@ class UserModel extends PageModel {
             $valid = true;
             }
           }
-      
-        return [ 'valid' => $valid, 'pronouns' => $pronouns, 'name' => $name, 'email' => $email, 'phonenumber' => $phonenumber, 'street' => $street, 
-                   'housenumber' => $housenumber, 'postalcode' => $postalcode, 'city' => $city, 'communication' => $communication, 'message' => $message,
-                   'pronounsError' => $pronounsError, 'nameError' => $nameError, 'emailError' => $emailError, 'phonenumberError' => $phonenumberError, 'streetError' => $streetError, 'housenumberError' => $housenumberError, 'postalcodeError' => $postalcodeError, 'cityError' => $cityError, 'communicationError' => $communicationError, 'messageError' => $messageError ];
       }
 
     private function authenticateUser() {
-        require_once "db.php";
+        require_once "./db.php";
         $user = findUserByEmail($this->email);
 
         //password validation
@@ -303,7 +315,13 @@ class UserModel extends PageModel {
 
     //same name as the one in the db
     public function registerNewUser() {
+        include_once "./db.php";
+        registerNewUser($email, $name, $password);
+    }
 
+    public function doLoginUser() {
+        $this->sessionManager->doLoginUser($this->name, $this->userId);
+        $this->errors['generalError'] = "Login failed.";
     }
 
 }

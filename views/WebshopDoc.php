@@ -2,14 +2,6 @@
 require ("ProductsDoc.php");
 include_once "./sessionManager.php";
 class WebshopDoc extends ProductsDoc { 
-  private function addToCartButton($id) {
-    echo "<form action='index.php' method='POST'>
-    <input type='hidden' name='action' value='addToShoppingCart'>
-    <input type='hidden' name='id' value=".$id.">
-    <input type='hidden' name='page' value='Webshop'>
-    <button type='submit'>Add to Cart</button>
-    </form>";
-  }
       
   private function showWebshopContent() {
     echo "<h2>Webshop</h2>";
@@ -18,7 +10,7 @@ class WebshopDoc extends ProductsDoc {
     //$result = getAllProducts();
       
     echo "<div class = 'products'>";
-    foreach ($this->data['products'] as $product) {
+    foreach ($this->model->products as $product) {
       $id = $product["id"];
       $name = $product["name"];
       //$description = $row["description"];
@@ -34,7 +26,7 @@ class WebshopDoc extends ProductsDoc {
       //echo "<p>$description</p>";
       echo "<p class='price'>$$price</p>";
       if(isUserLoggedIn()) {
-        addToCartButton($id);
+        $this->addToCartButton($id);
       }
       echo "</div>";
       echo "</a>";  

@@ -6,7 +6,7 @@ class PageModel {
     protected $isPost = false;
     public $menu;//holds menuitem objects
     public $errors = array();
-    public $genericErr = "";
+    public $generalError = "";
     protected $sessionManager;
 
     public function __construct($copy) {
@@ -18,7 +18,7 @@ class PageModel {
             $this->page = $copy->page;
             $this->isPost = $copy->isPost;
             $this->menu = $copy->menu;
-            $this->genericErr = $copy->genericErr;
+            $this->generalError = $copy->generalError;
             $this->sessionManager = $copy->sessionManager;
         }
     }

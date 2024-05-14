@@ -15,19 +15,6 @@ class ContactDoc extends FormsDoc {
     $this->showRadioField("Please select a communication method.","communication",["phone","email","postal"]);
     $this->showTextField("message", "Message");
     $this->showFormEnd();
-
-    /*
-    $this->showFormFieldTemp("pronouns", "Pronouns", 'PRONOUN');
-    $this->showFormFieldTemp("name", "Name",NULL); 
-    $this->showFormFieldTemp("email", "Email", NULL); 
-    $this->showFormFieldTemp("phonenumber", "Phone number", NULL);
-    $this->showFormFieldTemp("street", "Street", NULL); 
-    $this->showFormFieldTemp("housenumber", "House number",NULL);
-    $this->showFormFieldTemp("postalcode", "Postal code", NULL);
-    $this->showFormFieldTemp("city", "City", NULL); 
-    $this->showFormFieldTemp("communication", "Communication method", 'COMMUNICATION');
-    $this->showFormFieldTemp("message", "Message",NULL); 
-    */
     }
 }
 ?>
