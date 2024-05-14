@@ -22,23 +22,22 @@ class PageModel {
             $this->sessionManager = $copy->sessionManager;
         }
     }
-    
-    public function getRequestedPage() {
-        $this->isPost = ($_SERVER['REQUEST_METHOD'] == 'POST');
-
-        if ($this->isPost) {
-            $this->setPage(Util::getPostVar("page", "Home"));
-        } else {
-            $this->setPage($this->getUrlVar("page", "Home"));
-        }
-    }
-
-    protected function setPage($newPage) {
-        $this->page = $newPage;
-    }
 
     protected function getUrlVar($key, $default = "") {
-        return $default;
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+          $value = isset($_POST[$key]) ? trim($_POST[$key]) : $default;
+        } else {
+          $value = isset($_GET[$key]) ? trim($_GET[$key]) : $default;
+        }
+        return $value;
+      }
+      
+    public function getRequestedPage() {
+        $this->isPost = ($_SERVER["REQUEST_METHOD"] == "POST");
+        $this->page = $this->getUrlVar("page");
+        if (!$this->isPost) {
+            $this->action = $this->getUrlVar("action");
+        }
     }
 
     public function createMenu() {
