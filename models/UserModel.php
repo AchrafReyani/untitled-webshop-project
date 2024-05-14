@@ -1,4 +1,4 @@
-<?php
+<?php //this class interacts with the database
 class UserModel extends PageModel {
     public $email = "";
     public $name = "";
