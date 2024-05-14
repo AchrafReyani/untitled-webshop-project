@@ -1,9 +1,10 @@
 <?php
+include "./models/PageModel.php";
 class PageController {
     private $model;
 
     public function __construct() {
-        $this->model = newPageModel(NULL);
+        $this->model = new PageModel(NULL);
     }
 
     public function handleRequest() {
@@ -17,7 +18,7 @@ class PageController {
         $this->model->getRequestedPage();
     }//calls function from the model object
 
-    //business flow code
+    //business flow code TODO
     //login, register, change password, contact form, shopping cart, webshop and detail page?
     private function processRequest() {
         switch($this->model->page) {
@@ -30,21 +31,31 @@ class PageController {
             case "ChangePassword":
                 break;
             case "Contact":
-                break;
-            
+                break;     
         }
     }
 
     private function showResponse() {
-        //call create
         $this->model->createMenu();
-
+        $view = NULL;
         switch($this->model->page) {
             case "Home":
-                require_once("../views/HomeDoc.php");
+                echo 1;
+                require_once("./views/HomeDoc.php");
+                $view = new HomeDoc($this->model);
+                break;
+            case "About":
+                echo 2;
+                require_once("./views/AboutDoc.php");
+                $view = new AboutDoc($this->model);
+                break;
+            default:
+                echo "default case";
+                require_once("./views/HomeDoc.php");
                 $view = new HomeDoc($this->model);
                 break;
         }
+        $view->show();
     }
 }
 ?>

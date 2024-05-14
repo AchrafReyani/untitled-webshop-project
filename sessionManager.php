@@ -1,4 +1,5 @@
 <?php
+class SessionManager {
 function doLoginUser($username, $id) {
     $_SESSION['username'] = $username;
     $_SESSION['userid'] = $id;//currently used for changing the user's password
@@ -49,5 +50,6 @@ function removeFromShoppingCart($id) {
 function getShoppingCart() {
     $shoppingCart = $_SESSION['shoppingCart'];
     return $shoppingCart;
+}
 }
 ?>

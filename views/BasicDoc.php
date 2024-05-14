@@ -1,10 +1,11 @@
 <?php
 require('HtmlDoc.php');
 class BasicDoc extends HtmlDoc {
-    protected $data = NULL;
+    protected $model;
 
-    public function __construct($mydata) {
-        $this->data = $mydata;
+    //should model be in the constructor here?
+    public function __construct($model) {
+        $this->model = $model;
     }
 
     private function showMeta() {
@@ -34,11 +35,12 @@ class BasicDoc extends HtmlDoc {
     private function printMenu() {  
         echo '<nav> 
         <ul class="menu">'; 
-        foreach($this->data['menu'] as $link => $label) { 
-          $this->showMenuItem($link, $label); 
+        $menu = $this->model->menu;
+        foreach($menu as $link => $label) { 
+          $this->showMenuItem($link, $label->page); 
         }
         echo '</ul>' . PHP_EOL . '         </nav>' . PHP_EOL;  
-      }
+    }
 
     private function showMenu() {    
         $this->printMenu(); 
@@ -63,8 +65,8 @@ class BasicDoc extends HtmlDoc {
     }
 
     private function showGeneralError() {
-        if (!empty($this->data['generalError'])) {
-          echo '<div class="error">' . $this->data['generalError'] . '</div>';
+        if (!empty($this->model->genericErr['generalError'])) {
+          echo '<div class="error">' . $this->model->genericErr['generalError'] . '</div>';
         }
       }
     
