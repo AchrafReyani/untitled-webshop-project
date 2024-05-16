@@ -49,6 +49,7 @@ class PageModel {
             $this->sessionManager->getUsername();
             $this->menu['Logout'] = new MenuItem('Logout', 'Logout');
             $this->menu['Cart'] = new MenuItem('Cart', 'Cart');
+            $this->menu['ChangePassword'] = new MenuItem('Change Password', "ChangePassword");
         } else {
             $this->menu['Register'] = new MenuItem('Register', 'Register');
             $this->menu['Login'] = new MenuItem('Login', 'Login');

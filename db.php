@@ -41,7 +41,7 @@ function registerNewUser($email, $name, $password) {
   
     // Bind values using parameter types
     mysqli_stmt_bind_param($stmt, "sss", $email, $name, $password);
-  
+    
     // Execute the prepared statement
     if (mysqli_stmt_execute($stmt)) {
       echo "User registration successful!";
@@ -57,12 +57,13 @@ function registerNewUser($email, $name, $password) {
 
 function getCurrentPassword($id) {
     $conn = connectToDB();
+    echo $id;
     $idEscape = mysqli_real_escape_string($conn, $id);
     $query = mysqli_query($conn, "SELECT pwd FROM users WHERE id = '$idEscape'");
     $row = mysqli_fetch_assoc($query);
-    echo $row['pwd'];
+    $hashed_password = $row['pwd'];
     mysqli_close($conn);
-    return $row;
+    return $hashed_password;
 }
 
 function updatePassword($id, $password) {

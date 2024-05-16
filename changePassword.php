@@ -41,10 +41,8 @@ function validateChangePassword() {
         //make db connection
           
         require_once 'db.php';
-        //get current user's password
-        $row = getCurrentPassword($_SESSION['userid']);
         //get the hashed password from the database
-        $hashed_password = $row['pwd'];
+        $hashed_password = getCurrentPassword($_SESSION['userid']);
         
         if (password_verify($currentPassword, $hashed_password)) {
           // echo "password is correct";

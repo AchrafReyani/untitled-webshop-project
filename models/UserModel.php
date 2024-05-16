@@ -8,6 +8,7 @@ class UserModel extends PageModel {
     public $newPassword = "";
     public $confirmNewPassword = "";
     public $userId = NULL;
+    public $hashedPassword = "";
     public $emailError = "";
     public $nameError = "";
     public $passwordError = "";
@@ -62,8 +63,8 @@ class UserModel extends PageModel {
           //if account is found and password matches hashed password
           if (!empty($user) && password_verify($this->password, $user['pwd'])) {
             //echo "log in was succesfull";
-            $this->username = $user['username'];
-            $this->userid = $user['id'];
+            $this->name = $user['username'];
+            $this->userId = $user['id'];
             $this->valid = true;
           } else {
             //echo "login failed";
@@ -163,19 +164,13 @@ class UserModel extends PageModel {
                 
               require_once 'db.php';
               //get current user's password
-              $row = getCurrentPassword($_SESSION['userid']);
-              //get the hashed password from the database
-              $hashed_password = $row['pwd'];
-              
+              $hashed_password = getCurrentPassword($this->sessionManager->getUserId());
+              echo $hashed_password;
+              echo $this->currentPassword;
               if (password_verify($this->currentPassword, $hashed_password)) {
                 // echo "password is correct";
                 //hash new password
-      
-                //write new db function called changepassword that does this
-                $hashedPassword = password_hash($_POST['newPassword'], PASSWORD_DEFAULT);
-                //insert new password into database
-                updatePassword($_SESSION['userid'], $hashedPassword);
-                  
+                $this->hashedPassword = password_hash($_POST['newPassword'], PASSWORD_DEFAULT);
                 $this->valid = true;
                   
               } else {
@@ -307,8 +302,14 @@ class UserModel extends PageModel {
     }
 
     public function doLoginUser() {
+        echo $this->userId;
         $this->sessionManager->doLoginUser($this->name, $this->userId);
         $this->errors['generalError'] = "Login failed.";
+    }
+
+    public function updatePassword() {
+      //insert new password into database
+      updatePassword($this->userId, $this->hashedPassword);
     }
 
 }
