@@ -64,6 +64,7 @@ class PageController {
                 include_once "./models/ShopModel.php";
                 $this->model = new ShopModel($this->model);
                 $this->model->getWebshopProducts();
+                echo "getwebshopproducts executed";
                 $this->model->handleCartActions();
                 break;
             case "Detail":

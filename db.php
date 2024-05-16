@@ -1,4 +1,5 @@
 <?php
+//todo make db a class?
 function connectToDB() {
     $servername = "localhost";
     $dbusername = "WebShopUser";

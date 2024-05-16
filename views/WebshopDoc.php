@@ -11,6 +11,7 @@ class WebshopDoc extends ProductsDoc {
       
     echo "<div class = 'products'>";
     foreach ($this->model->products as $product) {
+      echo "first loop";
       $id = $product["id"];
       $name = $product["name"];
       //$description = $row["description"];

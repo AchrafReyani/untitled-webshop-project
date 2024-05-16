@@ -14,7 +14,9 @@ class CartDoc extends ProductsDoc {
           
             //loop through each item in the shoppingcart and check the database for matching ids
             foreach ($shoppingCart as $id => $quantity) {
-                foreach ($this->data['products'] as $product) {
+                echo "first loop";
+                foreach ($products as $product) {
+                    echo "second loop";
                 if($product['id'] == $id) {
                     echo '<div class="shoppingCart">';
                     $subtotal = $product['price'] * $quantity;

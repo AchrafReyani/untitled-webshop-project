@@ -1,13 +1,11 @@
 <?php //this class interacts with the database
 class ShopModel extends PageModel {
-
     public $products = [];
 
     public function __construct($pageModel) {
         PARENT::__construct($pageModel);
 
     }
-
 
     public function getWebShopProduct() {
         $product = NULL;
@@ -32,8 +30,9 @@ class ShopModel extends PageModel {
       
      public function getWebshopProducts() {
         include_once 'db.php';
+        echo "test";
         $products = getAllProducts();
-        echo is_null($products);
+        echo "test";
         return ['products' => $products];
       }
       
@@ -54,7 +53,7 @@ class ShopModel extends PageModel {
             removeFromShoppingCart($id);
             break;
           case 'submitShoppingCart'; 
-            //also uses functions from session manager
+            //also uses functions from session manager, is this 
             placeOrder();
             $this->sessionManager->deleteShoppingCart();//TODO maybe make seperate function for emptying thhe shopping cart and completely unsetting it for logging out
             $this->sessionManager->makeShoppingCart();
@@ -62,10 +61,5 @@ class ShopModel extends PageModel {
         }
         return $action;
       }
-
-
-     
 }
-
-
 ?>
