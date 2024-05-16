@@ -146,10 +146,15 @@ class UserModel extends PageModel {
                 
               require_once 'db.php';
               //get current user's password
-              $hashed_password = getCurrentPassword($this->sessionManager->getUserId());
-              echo $hashed_password;
+              $currentPasswordHashed = getCurrentPassword($this->sessionManager->getUserId());
+              //echo $hashed_password;
+              echo "ww:";
               echo $this->currentPassword;
-              if (password_verify($this->currentPassword, $hashed_password)) {
+              echo ":ww";
+              if (password_verify($this->currentPassword, $currentPasswordHashed)) {
+                echo "ww:";
+                echo $this->newPassword;
+                echo ":ww";
                 $this->hashedPassword = password_hash($this->newPassword, PASSWORD_DEFAULT);
                 $this->valid = true;  
               } else {
@@ -298,8 +303,7 @@ class UserModel extends PageModel {
 
     public function updatePassword() {
       include_once "./db.php";
-      echo $this->hashedPassword;
-      updatePassword($this->userId, $this->hashedPassword);
+      updatePassword($this->sessionManager->getUserId(), $this->hashedPassword);
     }
 
 }

@@ -30,12 +30,12 @@ abstract class FormsDoc extends BasicDoc {
     protected function showSelectField($fieldName, $label, $default, $options) {
         echo "<div>
             <label for=\"$fieldName\">$label:</label>
-            <select name=\"$fieldName\" value=\"\">
+            <select name=\"$fieldName\" value=\"".$this->model->{$fieldName}."\">
             <option value=\"\">".$default."</option>";
             foreach ($options as $option) {
                 echo "<option value=".$option.">".$option."</option>";
             }
-            //todo error? and no value?
+            echo "<span>* " . $this->model->{$fieldName . "Error"}  . "</span>";
             echo "</div>";
     }
 
@@ -46,7 +46,7 @@ abstract class FormsDoc extends BasicDoc {
             echo "<label for=\"$optionId\">".$option."</label>";
             echo "<input type=\"radio\" id=\"$optionId\" name=\"$name\" value=\"$option\">";
         }
-        //todo error message?
+        echo "<span>* " . $this->model->{$name . "Error"}  . "</span>";
         echo "</div>";
     }  
 }
