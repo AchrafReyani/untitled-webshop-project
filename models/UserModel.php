@@ -77,7 +77,7 @@ class UserModel extends PageModel {
     }
 
     public function validateRegistration() {    
-        if ($_SERVER ['REQUEST_METHOD'] === 'POST') {
+        if ($this->isPost) {
         //save input if valid and send error message when not valid
            
         //if email is empty give required error, if it exists check for duplicate emails in the database. 
@@ -105,10 +105,10 @@ class UserModel extends PageModel {
             $this->password = $_POST['password'];
           }
       
-          if (empty($_POST["confirm_password"])) {
+          if (empty($_POST["confirmPassword"])) {
             $this->confirmPasswordError = "Confirm password is required";
           } else {
-            $this->confirmPassword = $_POST['confirm_password'];
+            $this->confirmPassword = $_POST['confirmPassword'];
           }
       
           //check if passwords match

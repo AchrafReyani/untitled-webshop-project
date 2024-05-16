@@ -28,8 +28,11 @@ function getEmailCount($email) {
     return $count;
 }
 
+//todo this function is also responsible for the hashing
 function registerNewUser($email, $name, $password) {
     $conn = connectToDB();
+    //hashes the password
+    $password = password_hash($password, PASSWORD_DEFAULT);
     //use a prepared statement to safely insert user data
     $stmt = mysqli_prepare($conn, "INSERT INTO users (email, username, pwd) VALUES (?, ?, ?)");
     if (!$stmt) {
