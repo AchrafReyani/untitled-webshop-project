@@ -56,8 +56,8 @@ class ShopModel extends PageModel {
           case 'submitShoppingCart'; 
             //also uses functions from session manager
             placeOrder();
-            deleteShoppingCart();//TODO maybe make seperate function for emptying thhe shopping cart and completely unsetting it for logging out
-            makeShoppingCart();
+            $this->sessionManager->deleteShoppingCart();//TODO maybe make seperate function for emptying thhe shopping cart and completely unsetting it for logging out
+            $this->sessionManager->makeShoppingCart();
             break;
         }
         return $action;

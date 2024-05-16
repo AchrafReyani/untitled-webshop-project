@@ -1,30 +1,14 @@
 <?php
 require ("ProductsDoc.php");
 class CartDoc extends ProductsDoc { 
-    private function addToOrderButton($id) {
-        echo "<form action='index.php' method='POST'>
-        <input type='hidden' name='action' value='addToShoppingCart'>
-        <input type='hidden' name='id' value=".$id.">
-        <input type='hidden' name='page' value='ShoppingCart'>
-        <button type='submit'>Add 1</button>
-        </form>";
-    }
-      
-    private function removeFromOrderButton($id) {
-        echo "<form action='index.php' method='POST'>
-        <input type='hidden' name='action' value='removeFromShoppingCart'>
-        <input type='hidden' name='id' value=".$id.">
-        <input type='hidden' name='page' value='ShoppingCart'>
-        <button type='submit'>Remove 1</button>
-        </form>";
-    }
+
       
     //display product name, quantity, small image, price, and total price of the whole order
     private function showShoppingCartContent() {
         if (!isset($_SESSION['shoppingCart']) || empty($_SESSION['shoppingCart'])) {
             echo 'Your shopping cart is empty.';
         } else {
-            $shoppingCart = getShoppingCart();
+            $shoppingCart = $this->sessionManager->getShoppingCart(); //todo does this work?
             $products = $this->data['products'];
             $total = 0;
           
@@ -36,8 +20,8 @@ class CartDoc extends ProductsDoc {
                     $subtotal = $product['price'] * $quantity;
                     $total += $subtotal;
                     echo '<img src='.$product['image'].' alt="" class="shoppingCartImage"><ul> <li>'.$product['name'].'</li> <li>quantity: '.$quantity.'</li> <li> subtotal: $'.$subtotal.'</li></ul>';
-                    addToOrderButton($id);
-                    removeFromOrderButton($id);
+                    $this->addToOrderButton($id);
+                    $this->removeFromOrderButton($id);
                     echo '</div>';
               }
             }
