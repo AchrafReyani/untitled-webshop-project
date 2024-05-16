@@ -70,11 +70,8 @@ function updatePassword($id, $password) {
     $conn = connectToDB();
     $idEscape = mysqli_real_escape_string($conn, $id);
     $passwordEscape = mysqli_real_escape_string($conn, $password);
-    echo "ww wordt veranderd";
     $query = "UPDATE users SET pwd = '$passwordEscape' WHERE id = '$idEscape'";
-    echo "ww wordt veranderd2";
     mysqli_query($conn, $query);
-    echo "ww wordt veranderd3";
     mysqli_close($conn);
 }
 

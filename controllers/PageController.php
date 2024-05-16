@@ -20,7 +20,6 @@ class PageController {
 
     //TODO gets called as soon as the page has openend, making errors appear too early
     private function processRequest() {
-        echo "processrequest got called";
         switch($this->model->page) {
             case "Login":
                 include_once "./models/UserModel.php";

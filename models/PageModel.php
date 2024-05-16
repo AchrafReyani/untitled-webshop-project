@@ -46,8 +46,7 @@ class PageModel {
         $this->menu['Contact'] = new MenuItem('Contact', 'Contact');
         $this->menu['Webshop'] = new MenuItem('Webshop', 'Webshop');
         if ($this->sessionManager->isUserLoggedIn()) {
-            $this->sessionManager->getUsername();
-            $this->menu['Logout'] = new MenuItem('Logout', 'Logout');
+            $this->menu['Logout'] = new MenuItem('Logout '. $this->sessionManager->getUsername(), 'Logout');
             $this->menu['Cart'] = new MenuItem('Cart', 'Cart');
             $this->menu['ChangePassword'] = new MenuItem('Change Password', "ChangePassword");
         } else {

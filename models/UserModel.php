@@ -55,25 +55,7 @@ class UserModel extends PageModel {
         } else {
           $this->password = $_POST['password'];
         }
-    
-        //logic to check file for valid userinfo
-        require_once 'db.php';
-        try {
-          $user = getUserInfo($this->email);
-          //if account is found and password matches hashed password
-          if (!empty($user) && password_verify($this->password, $user['pwd'])) {
-            //echo "log in was succesfull";
-            $this->name = $user['username'];
-            $this->userId = $user['id'];
-            $this->valid = true;
-          } else {
-            //echo "login failed";
-            $this->generalError = "Invalid email or password";
-          }
-        } catch (Exception $e) {
-          $this->generalError = "Could not connect to the database, You cannot login at this time. Please try again later.";
-          //logError("Authentication failed for user ' . $email . ', SQLError: ' . $e->getMessage()'");
-        }
+        $this->authenticateUser();
       }    
     }
 
@@ -168,13 +150,8 @@ class UserModel extends PageModel {
               echo $hashed_password;
               echo $this->currentPassword;
               if (password_verify($this->currentPassword, $hashed_password)) {
-                // echo "password is correct";
-                //hash new password
-                //echo 
                 $this->hashedPassword = password_hash($this->newPassword, PASSWORD_DEFAULT);
-
-                $this->valid = true;
-                  
+                $this->valid = true;  
               } else {
                 $this->currentPasswordError = "Current password is incorrect";
                 }
@@ -286,15 +263,26 @@ class UserModel extends PageModel {
           }
       }
 
+      //todo
     private function authenticateUser() {
-        require_once "./db.php";
-        $user = findUserByEmail($this->email);
-
-        //password validation
-
-        $this->name = $user['name'];
-        // $this->values['name'] = $user['name']
-        $this->userId = $user['id'];
+       //logic to check file for valid userinfo
+       require_once 'db.php';
+       try {
+         $user = getUserInfo($this->email);
+         //if account is found and password matches hashed password
+         if (!empty($user) && password_verify($this->password, $user['pwd'])) {
+           //echo "log in was succesfull";
+           $this->name = $user['username'];
+           $this->userId = $user['id'];
+           $this->valid = true;
+         } else {
+           //echo "login failed";
+           $this->generalError = "Invalid email or password";
+         }
+       } catch (Exception $e) {
+         $this->generalError = "Could not connect to the database, You cannot login at this time. Please try again later.";
+         //logError("Authentication failed for user ' . $email . ', SQLError: ' . $e->getMessage()'");
+       }
     }
 
     //same name as the one in the db
@@ -309,8 +297,8 @@ class UserModel extends PageModel {
     }
 
     public function updatePassword() {
-      //insert new password into database
       include_once "./db.php";
+      echo $this->hashedPassword;
       updatePassword($this->userId, $this->hashedPassword);
     }
 
