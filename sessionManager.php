@@ -1,37 +1,37 @@
 <?php
 class SessionManager {
-function doLoginUser($username, $id) {
+public function doLoginUser($username, $id) {
     $_SESSION['username'] = $username;
     $_SESSION['userid'] = $id;//currently used for changing the user's password
 }
 
-function doLogoutUser() {
+public function doLogoutUser() {
     unset($_SESSION['username']);
     unset($_SESSION['userid']);
 }
 
-function getUsername() {
+public function getUsername() {
     return $_SESSION['username'];
 }
 
-function getUserId() {
+public function getUserId() {
     return $_SESSION['userid'];
 }
 
-function isUserLoggedIn() {
+public function isUserLoggedIn() {
     return isset($_SESSION['username']);
 }
 
-function makeShoppingCart() {
+public function makeShoppingCart() {
     $_SESSION['shoppingCart'] = [];
 }
 
 //gets called either when an order has been made or if the user logs out.
-function deleteShoppingCart() {
+public function deleteShoppingCart() {
     unset($_SESSION['shoppingCart']);
 }
 
-function addToShoppingCart($id) {
+public function addToShoppingCart($id) {
     if (empty($_SESSION['shoppingCart'][$id])) {
         $_SESSION['shoppingCart'][$id] = 1;
     } else {
@@ -39,7 +39,7 @@ function addToShoppingCart($id) {
     }
 }
 
-function removeFromShoppingCart($id) {
+public function removeFromShoppingCart($id) {
     if ($_SESSION['shoppingCart'][$id] > 1) {
         $_SESSION['shoppingCart'][$id]--;
     } else {
@@ -47,7 +47,7 @@ function removeFromShoppingCart($id) {
     } 
 }
 
-function getShoppingCart() {
+public function getShoppingCart() {
     $shoppingCart = $_SESSION['shoppingCart'];
     return $shoppingCart;
 }

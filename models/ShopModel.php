@@ -5,6 +5,7 @@ class ShopModel extends PageModel {
 
     public function __construct($pageModel) {
         PARENT::__construct($pageModel);
+
     }
 
 
@@ -53,6 +54,7 @@ class ShopModel extends PageModel {
             removeFromShoppingCart($id);
             break;
           case 'submitShoppingCart'; 
+            //also uses functions from session manager
             placeOrder();
             deleteShoppingCart();//TODO maybe make seperate function for emptying thhe shopping cart and completely unsetting it for logging out
             makeShoppingCart();
@@ -60,5 +62,10 @@ class ShopModel extends PageModel {
         }
         return $action;
       }
+
+
+     
 }
+
+
 ?>

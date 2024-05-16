@@ -60,6 +60,27 @@ class PageController {
                     $this->model->page = "Home";
                 }
                 break;  
+            case "Webshop":
+                include_once "./models/ShopModel.php";
+                $this->model = new ShopModel($this->model);
+                $this->model->getWebshopProducts();
+                $this->model->handleCartActions();
+                break;
+            case "Detail":
+                include_once "./models/ShopModel.php";
+                $this->model = new ShopModel($this->model);
+                $this->model->getWebshopProduct();
+                $this->model->handleCartActions();
+                break;
+            case "Cart":
+                include_once "./models/ShopModel.php";
+                $this->model = new ShopModel($this->model);
+                $this->model->getShoppingCart();
+                $this->model->handleCartActions();
+                break;
+            default:
+                echo "processrequest: ". $this->model->page ." unknown.";
+                break;
         }
     }
 
