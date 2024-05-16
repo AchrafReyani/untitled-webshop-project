@@ -65,8 +65,8 @@ class BasicDoc extends HtmlDoc {
     }
 
     private function showGeneralError() {
-        if (!empty($this->model->genericErr['generalError'])) {
-          echo '<div class="error">' . $this->model->genericErr['generalError'] . '</div>';
+        if (!empty($this->model->generalError)) {
+          echo '<div class="error">' . $this->model->generalError . '</div>';
         }
       }
     

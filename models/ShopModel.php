@@ -33,7 +33,7 @@ class ShopModel extends PageModel {
         echo "test";
         $products = getAllProducts();
         echo "test";
-        return ['products' => $products];
+        return $products;
       }
       
       public function handleCartActions() {

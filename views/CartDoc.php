@@ -1,8 +1,6 @@
 <?php
 require ("ProductsDoc.php");
 class CartDoc extends ProductsDoc { 
-
-      
     //display product name, quantity, small image, price, and total price of the whole order
     private function showShoppingCartContent() {
         if (!isset($_SESSION['shoppingCart']) || empty($_SESSION['shoppingCart'])) {

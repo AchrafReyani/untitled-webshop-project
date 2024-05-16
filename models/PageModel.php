@@ -7,7 +7,7 @@ class PageModel {
     public $menu;//holds menuitem objects
     public $errors = array();
     public $generalError = "";
-    protected $sessionManager;
+    public $sessionManager;
 
     public function __construct($copy) {
         if(empty($copy)) {
@@ -46,9 +46,9 @@ class PageModel {
         $this->menu['Contact'] = new MenuItem('Contact', 'Contact');
         $this->menu['Webshop'] = new MenuItem('Webshop', 'Webshop');
         if ($this->sessionManager->isUserLoggedIn()) {
+            $this->sessionManager->getUsername();
             $this->menu['Logout'] = new MenuItem('Logout', 'Logout');
             $this->menu['Cart'] = new MenuItem('Cart', 'Cart');
-            $this->sessionManager->getLoggedInUser();
         } else {
             $this->menu['Register'] = new MenuItem('Register', 'Register');
             $this->menu['Login'] = new MenuItem('Login', 'Login');

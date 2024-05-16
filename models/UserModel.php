@@ -38,49 +38,43 @@ class UserModel extends PageModel {
     public $valid = false;
 
     public function __construct($pageModel) {
-        PARENT::__construct($pageModel);
+      PARENT::__construct($pageModel);
     }
 
     public function validateLogin() {
-        if ($_SERVER ['REQUEST_METHOD'] === 'POST') {
+      if ($this->isPost) {
         if (empty($_POST["email"])) {
           $this->emailError = "Email is required";
         } else {
-            $this->email = $_POST['email'];
-          }
+          $this->email = $_POST['email'];
+        }
       
         if (empty($_POST["password"])) {
           $this->passwordError = "Password is required";
         } else {
-            $this->password = $_POST['password'];
-          }
-      
+          $this->password = $_POST['password'];
+        }
+    
         //logic to check file for valid userinfo
         require_once 'db.php';
         try {
-        $user = getUserInfo($email);
-        //store the hashed password from the database
-        $hashed_password = $user['pwd'];
-        //if account is found and password matches hashed password
-        if (password_verify($this->password, $hashed_password)) {
-          //echo "log in was succesfull";
-          $username = $user['username'];
-          $this->userid = $user['id'];
-          $this->valid = true;
-            
-        } else {
+          $user = getUserInfo($this->email);
+          //if account is found and password matches hashed password
+          if (!empty($user) && password_verify($this->password, $user['pwd'])) {
+            //echo "log in was succesfull";
+            $this->username = $user['username'];
+            $this->userid = $user['id'];
+            $this->valid = true;
+          } else {
             //echo "login failed";
-            if (!empty($_POST["password"]) && !empty($_POST["email"])) {
-              $this->loginError = "Invalid email or password";
-            }
+            $this->generalError = "Invalid email or password";
           }
-          } catch (Exception $e) {
-            $this->generalError = "Could not connect to the database, You cannot login at this time. Please try again later.";
-            //logError("Authentication failed for user ' . $email . ', SQLError: ' . $e->getMessage()'");
-            }
+        } catch (Exception $e) {
+          $this->generalError = "Could not connect to the database, You cannot login at this time. Please try again later.";
+          //logError("Authentication failed for user ' . $email . ', SQLError: ' . $e->getMessage()'");
         }
-        
-      }
+      }    
+    }
 
     public function validateRegistration() {    
         if ($_SERVER ['REQUEST_METHOD'] === 'POST') {

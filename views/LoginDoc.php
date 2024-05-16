@@ -5,7 +5,7 @@ class LoginDoc extends FormsDoc {
       $this->showFormStart("Login", "Please enter your email and password to Login.", "index.php", "POST");
       $this->showTextField("email", "Email");
       $this->showTextField("password", "Password");
-      $this->showFormEnd();
+      $this->showFormEnd("Login");
   }
 }
 ?>

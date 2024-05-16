@@ -79,6 +79,12 @@ class PageController {
                 $this->model->getShoppingCart();
                 $this->model->handleCartActions();
                 break;
+            case "Logout":
+                include_once "./models/UserModel.php";
+                $this->model = new UserModel($this->model);
+                $this->model->sessionManager->doLogoutUser();
+                $this->model->page = "home";
+                break;
             default:
                 echo "processrequest: ". $this->model->page ." unknown.";
                 break;

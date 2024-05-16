@@ -14,12 +14,13 @@ abstract class FormsDoc extends BasicDoc {
     protected function showTextField($fieldName, $label) {
         echo "<div>
         <label for=\"$fieldName\">$label:</label>
-        <input type=\"text\" name=\"$fieldName\" value=\"". $fieldName."\">
-        <span>* " . $fieldName . "Error"  . "</span>
+        <input type=\"text\" name=\"$fieldName\" value=\"". $this->model->{$fieldName}."\">
+        <span>* " . $this->model->{$fieldName . "Error"}  . "</span>
         </div>";
     }
 
-    protected function showFormEnd() {
+    protected function showFormEnd($page) {
+        $this->showHiddenField('page', $page);
         echo "<div>
         <input type=\"submit\" value=\"Send\">
         </div>
