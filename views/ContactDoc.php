@@ -14,6 +14,6 @@ class ContactDoc extends FormsDoc {
     $this->showRadioField("Please select a communication method.","communication",["phone","email","postal"]);
     $this->showTextField("message", "Message");
     $this->showFormEnd("Contact");
-    }
+  }
 }
 ?>

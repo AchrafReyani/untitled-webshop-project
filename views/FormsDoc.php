@@ -27,17 +27,25 @@ abstract class FormsDoc extends BasicDoc {
         </form>";
     }
 
-    protected function showSelectField($fieldName, $label, $default, $options) {
-        echo "<div>
-            <label for=\"$fieldName\">$label:</label>
-            <select name=\"$fieldName\" value=\"".$this->model->{$fieldName}."\">
-            <option value=\"\">".$default."</option>";
-            foreach ($options as $option) {
-                echo "<option value=".$option.">".$option."</option>";
-            }
-            echo "<span>* " . $this->model->{$fieldName . "Error"}  . "</span>";
-            echo "</div>";
+
+   // <option value=\"he/him\" ". ($data[$fieldName] == "he/him" ? "selected=\"selected\"" : "").">He/him</option>
+
+   protected function showSelectField($fieldName, $label, $default, $options) {
+    echo "<div>";
+    echo "  <label for=\"$fieldName\">$label:</label>";
+    echo "  <select name=\"$fieldName\" id=\"$fieldName\">";
+    echo "    <option value=\"\">".$default."</option>";
+  
+    foreach ($options as $option) {
+      $selected = ($this->model->{$fieldName} === $option) ? "selected=\"selected\"" : "";
+      echo "    <option value=\"$option\" $selected>$option</option>";
     }
+  
+    echo "    <span>* " . $this->model->{$fieldName . "Error"} . "</span>";
+    echo "  </select>";
+    echo "</div>";
+  }
+  
 
     protected function showRadioField($text, $name, $options) {
         echo "<div><p>".$text."</p>";
