@@ -170,7 +170,9 @@ class UserModel extends PageModel {
               if (password_verify($this->currentPassword, $hashed_password)) {
                 // echo "password is correct";
                 //hash new password
-                $this->hashedPassword = password_hash($_POST['newPassword'], PASSWORD_DEFAULT);
+                //echo 
+                $this->hashedPassword = password_hash($this->newPassword, PASSWORD_DEFAULT);
+
                 $this->valid = true;
                   
               } else {
@@ -302,13 +304,13 @@ class UserModel extends PageModel {
     }
 
     public function doLoginUser() {
-        echo $this->userId;
         $this->sessionManager->doLoginUser($this->name, $this->userId);
         $this->errors['generalError'] = "Login failed.";
     }
 
     public function updatePassword() {
       //insert new password into database
+      include_once "./db.php";
       updatePassword($this->userId, $this->hashedPassword);
     }
 
