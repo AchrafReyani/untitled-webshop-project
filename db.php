@@ -102,13 +102,12 @@ function getProductDetails($id) {
 }
 
 //TODO make function
-function placeOrder() {
+function placeOrder($shoppingCart, $userId) {
     $conn = connectToDB();
     try {
-        $shoppingCart = getShoppingCart();
         if (!empty($shoppingCart)) {
         $date = date("Y-m-d");
-        $query = "INSERT INTO orders (user_id, date) VALUES (" . getUserId() . ", '$date');";
+        $query = "INSERT INTO orders (user_id, date) VALUES (" . $userId . ", '$date');";
         mysqli_query($conn, $query);
         $query = "INSERT INTO order_rows (order_id, product_id, quantity) VALUES ";
         $values = [];  // Array to store prepared values

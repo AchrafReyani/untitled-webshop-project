@@ -63,18 +63,19 @@ class PageController {
                 include_once "./models/ShopModel.php";
                 $this->model = new ShopModel($this->model);
                 $this->model->getWebshopProducts();
-                echo "getwebshopproducts executed";
+                //echo "getwebshopproducts executed";
                 $this->model->handleCartActions();
                 break;
             case "Detail":
                 include_once "./models/ShopModel.php";
                 $this->model = new ShopModel($this->model);
-                $this->model->getWebshopProduct();
+                $this->model->getWebshopProducts();
                 $this->model->handleCartActions();
                 break;
             case "Cart":
                 include_once "./models/ShopModel.php";
                 $this->model = new ShopModel($this->model);
+                $this->model->getWebshopProducts();
                 $this->model->getShoppingCart();
                 $this->model->handleCartActions();
                 break;
@@ -117,6 +118,10 @@ class PageController {
             case "Detail":
                 require_once("./views/DetailDoc.php");
                 $view = new DetailDoc($this->model);
+                break;
+            case "Cart":
+                require_once("./views/CartDoc.php");
+                $view = new CartDoc($this->model);
                 break;
             case "Login":
                 require_once("./views/LoginDoc.php");

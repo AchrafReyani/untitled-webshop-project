@@ -6,12 +6,13 @@ class WebshopDoc extends ProductsDoc {
   private function showWebshopContent() {
     echo "<h2>Webshop</h2>";
     try {
+      //echo "showwebshopcontentstart";
     //require_once 'db.php';
     //$result = getAllProducts();
       
     echo "<div class = 'products'>";
     foreach ($this->model->products as $product) {
-      echo "first loop";
+      //echo "first loop";
       $id = $product["id"];
       $name = $product["name"];
       //$description = $row["description"];
@@ -19,14 +20,14 @@ class WebshopDoc extends ProductsDoc {
       $image = $product["image"];
           
       // Display product information
-      echo "<a href='index.php?page=Product&id=$id' div class='product'>";
+      echo "<a href='index.php?page=Detail&id=$id' div class='product'>";
       echo "<div class=''>";
       //echo "<p>Product ID: $id</p>";
       echo "<img src='$image' alt='$name'>";
       echo "<h3>$name</h3>";
       //echo "<p>$description</p>";
       echo "<p class='price'>$$price</p>";
-      if(isUserLoggedIn()) {
+      if($this->model->sessionManager->isUserLoggedIn()) {
         $this->addToCartButton($id);
       }
       echo "</div>";

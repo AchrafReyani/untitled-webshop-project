@@ -16,7 +16,7 @@ class ShopModel extends PageModel {
           $id = isset($_GET['id']) ? (int) $_GET['id'] : 0;
           if ($id != 0) {
             include_once 'db.php';
-            $product = getProductById($id);
+            $product = getProductDetails($id);
           }
           if(empty($product)) {
             $generalError = "The product with id: ".$id." was not found.";
@@ -30,10 +30,20 @@ class ShopModel extends PageModel {
       
      public function getWebshopProducts() {
         include_once 'db.php';
-        echo "test";
-        $products = getAllProducts();
-        echo "test";
-        return $products;
+        $this->products = getAllProducts();
+        //temporary to check if it works
+        if (!empty($this->products)) {
+          echo "Array is not empty. It contains products.";
+      } else {
+          echo "Array is empty. No products found.";
+      }
+      //dont have to return anymore?
+        //return $products;
+      }
+
+      //is there another way to do this?
+      public function getShoppingCart() {
+        return $this->sessionManager->getShoppingCart();
       }
       
       public function handleCartActions() {
@@ -46,15 +56,15 @@ class ShopModel extends PageModel {
         {
           case 'addToShoppingCart';
             $id = $_POST['id'];
-            addToShoppingCart($id);
+            $this->sessionManager->addToShoppingCart($id);
             break;
           case 'removeFromShoppingCart';
             $id = $_POST['id'];
-            removeFromShoppingCart($id);
+            $this->sessionManager->removeFromShoppingCart($id);
             break;
           case 'submitShoppingCart'; 
-            //also uses functions from session manager, is this 
-            placeOrder();
+            //also uses functions from session manager, is this okay?
+            placeOrder($this->getShoppingCart(), $this->sessionManager->getUserId());
             $this->sessionManager->deleteShoppingCart();//TODO maybe make seperate function for emptying thhe shopping cart and completely unsetting it for logging out
             $this->sessionManager->makeShoppingCart();
             break;
