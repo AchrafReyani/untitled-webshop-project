@@ -33,7 +33,7 @@ class ShopModel extends PageModel {
         $this->products = getAllProducts();
         //temporary to check if it works
         if (!empty($this->products)) {
-          echo "Array is not empty. It contains products.";
+          //echo "Array is not empty. It contains products.";
       } else {
           echo "Array is empty. No products found.";
       }

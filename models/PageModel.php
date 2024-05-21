@@ -23,7 +23,7 @@ class PageModel {
         }
     }
 
-    protected function getUrlVar($key, $default = "") {
+    protected function getRequestVar($key, $default = "") {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
           $value = isset($_POST[$key]) ? trim($_POST[$key]) : $default;
         } else {
@@ -34,9 +34,9 @@ class PageModel {
       
     public function getRequestedPage() {
         $this->isPost = ($_SERVER["REQUEST_METHOD"] == "POST");
-        $this->page = $this->getUrlVar("page");
+        $this->page = $this->getRequestVar("page");
         if (!$this->isPost) {
-            $this->action = $this->getUrlVar("action");
+            $this->action = $this->getRequestVar("action");
         }
     }
 

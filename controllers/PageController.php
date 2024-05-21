@@ -86,7 +86,7 @@ class PageController {
                 $this->model->page = "home";
                 break;
             default:
-                echo "processrequest: ". $this->model->page ." unknown.";
+               // echo "processrequest: ". $this->model->page ." unknown.";
                 break;
         }
     }
