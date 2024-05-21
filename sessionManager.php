@@ -3,8 +3,6 @@ class SessionManager {
 public function doLoginUser($username, $id) {
     $_SESSION['username'] = $username;
     $_SESSION['userid'] = $id;//currently used for changing the user's password
-    echo $_SESSION['userid'];
-    echo "called it";
 }
 
 public function doLogoutUser() {
