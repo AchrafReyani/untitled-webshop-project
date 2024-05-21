@@ -34,28 +34,30 @@ abstract class FormsDoc extends BasicDoc {
     echo "<div>";
     echo "  <label for=\"$fieldName\">$label:</label>";
     echo "  <select name=\"$fieldName\" id=\"$fieldName\">";
-    echo "    <option value=\"\">".$default."</option>";
+    echo "    <option value=\"\">$default</option>";
   
     foreach ($options as $option) {
-      $selected = ($this->model->{$fieldName} === $option) ? "selected=\"selected\"" : "";
-      echo "    <option value=\"$option\" $selected>$option</option>";
+        $selected = ($this->model->{$fieldName} === $option) ? "selected=\"selected\"" : "";
+        echo "    <option value=\"$option\" $selected>$option</option>";
     }
   
-    echo "    <span>* " . $this->model->{$fieldName . "Error"} . "</span>";
     echo "  </select>";
+    echo "  <span>* " . $this->model->{$fieldName . "Error"} . "</span>";
     echo "</div>";
-  }
+}
+
   
 
-    protected function showRadioField($text, $name, $options) {
-        echo "<div><p>".$text."</p>";
-        foreach ($options as $option) {
-            $optionId = lcfirst($option) . "-"."$name"; // Generate unique ID for each radio button
-            echo "<label for=\"$optionId\">".$option."</label>";
-            echo "<input type=\"radio\" id=\"$optionId\" name=\"$name\" value=\"$option\">";
-        }
-        echo "<span>* " . $this->model->{$name . "Error"}  . "</span>";
-        echo "</div>";
-    }  
+  protected function showRadioField($text, $name, $options) {
+    echo "<div><p>".$text."</p>";
+    foreach ($options as $option) {
+        $optionId = lcfirst($option) . "-" . "$name"; // Generate unique ID for each radio button
+        $isChecked = !empty($this->model->{$name}) && $this->model->{$name} == $option ? "checked" : "";
+        echo "<label for=\"$optionId\">".$option."</label>";
+        echo "<input type=\"radio\" id=\"$optionId\" name=\"$name\" value=\"$option\" $isChecked>";
+    }
+    echo "<span>* " . $this->model->{$name . "Error"}  . "</span>";
+    echo "</div>";
+}
 }
 ?>
