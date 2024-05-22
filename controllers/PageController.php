@@ -2,9 +2,13 @@
 include "./models/PageModel.php";
 class PageController {
     private $model;
+    private $modelFactory;
 
-    public function __construct() {
-        $this->model = new PageModel(NULL);
+    public function __construct(ModelFactory $modelFactory) {
+        $this->modelFactory = $modelFactory;
+
+        $this->model = $this->modelFactory->createModel('Page');
+        //$this->model = new PageModel(NULL);
     }
 
     public function handleRequest() {
@@ -23,7 +27,7 @@ class PageController {
         switch($this->model->page) {
             case "Login":
                 include_once "./models/UserModel.php";
-                $this->model = new UserModel($this->model);
+                $this->model = $this->modelFactory->createModel("User");
                 $this->model->validateLogin();
                 if ($this->model->valid) {
                     $this->model->doLoginUser();
@@ -34,7 +38,7 @@ class PageController {
                 break;
             case "Register":
                 include_once "./models/UserModel.php";
-                $this->model = new UserModel($this->model);
+                $this->model = $this->modelFactory->createModel("User");
                 $this->model->validateRegistration();
                 if ($this->model->valid) {
                     $this->model->registerNewUser();
@@ -43,7 +47,7 @@ class PageController {
                 break;
             case "Contact":
                 include_once "./models/UserModel.php";
-                $this->model = new UserModel($this->model);
+                $this->model = $this->modelFactory->createModel("User");
                 $this->model->validateForm();
                 if ($this->model->valid) {
                     //todo send email to myself?
@@ -52,7 +56,7 @@ class PageController {
                 break;
             case "ChangePassword":
                 include_once "./models/UserModel.php";
-                $this->model = new UserModel($this->model);
+                $this->model = $this->modelFactory->createModel("User");
                 $this->model->validateChangePassword();
                 if ($this->model->valid) {
                     $this->model->updatePassword();
@@ -61,27 +65,27 @@ class PageController {
                 break;  
             case "Webshop":
                 include_once "./models/ShopModel.php";
-                $this->model = new ShopModel($this->model);
+                $this->model = $this->modelFactory->createModel("Shop");
                 $this->model->getWebshopProducts();
                 //echo "getwebshopproducts executed";
                 $this->model->handleCartActions();
                 break;
             case "Detail":
                 include_once "./models/ShopModel.php";
-                $this->model = new ShopModel($this->model);
+                $this->model = $this->modelFactory->createModel("Shop");
                 $this->model->getWebshopProducts();
                 $this->model->handleCartActions();
                 break;
             case "Cart":
                 include_once "./models/ShopModel.php";
-                $this->model = new ShopModel($this->model);
+                $this->model = $this->modelFactory->createModel("Shop");
                 $this->model->getWebshopProducts();
                 $this->model->getShoppingCart();
                 $this->model->handleCartActions();
                 break;
             case "Logout":
                 include_once "./models/UserModel.php";
-                $this->model = new UserModel($this->model);
+                $this->model = $this->modelFactory->createModel("User");
                 $this->model->sessionManager->doLogoutUser();
                 $this->model->page = "home";
                 break;

@@ -2,9 +2,9 @@
 class ShopModel extends PageModel {
     public $products = [];
 
-    public function __construct($pageModel) {
+    public function __construct($pageModel, ShopCrud $crud) {
         PARENT::__construct($pageModel);
-
+        $this->crud = $crud;
     }
 
     public function getWebShopProduct() {

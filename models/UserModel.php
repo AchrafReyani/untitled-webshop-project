@@ -1,4 +1,6 @@
 <?php //this class interacts with the database
+include_once "./UserCrud.php";
+
 class UserModel extends PageModel {
   public $email = "";
   public $name = "";
@@ -38,8 +40,11 @@ class UserModel extends PageModel {
   public $messageError = "";
   public $valid = false;
 
-  public function __construct($pageModel) {
+  public $crud;
+
+  public function __construct($pageModel, UserCrud $crud) {
     PARENT::__construct($pageModel);
+    $this->crud = $crud;
   }
 
   public function validateLogin() {
