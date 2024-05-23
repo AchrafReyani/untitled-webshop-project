@@ -40,15 +40,14 @@ class UserCrud {
         $this->crud->updateRow($sql, $params);
     }
 
-    public function doesEmailExist($email) {
+
+    public function readIfEmailExists($email) {
         return !empty($this->readUserByEmail($email));
     }
 
     //this isn't used atm
     public function deleteUser() {
-
+        //todo
     }
-
-    //todo?
 }
 ?>

@@ -15,7 +15,8 @@ class ShopCrud {
 
     }
 
-    //todo
+    public function readProductDetails() {
 
+    }
 }
 ?>

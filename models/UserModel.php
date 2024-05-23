@@ -72,7 +72,7 @@ class UserModel extends PageModel {
         $this->emailError = "Email is required";
       } else {
           $this->email = $_POST['email']; 
-          if ($this->crud->doesEmailExist($this->email)) { 
+          if ($this->crud->readIfEmailExists($this->email)) { 
             $this->emailError = "Email already exists";
           } 
         }
