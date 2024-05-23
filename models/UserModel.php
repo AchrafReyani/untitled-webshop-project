@@ -71,10 +71,8 @@ class UserModel extends PageModel {
       if (empty($_POST["email"])) {
         $this->emailError = "Email is required";
       } else {
-          $this->email = $_POST['email'];
-          require_once 'db.php';
-          $count = getEmailCount($this->email); //get the number of rows that contain the email address. 
-          if ($count > 0) { 
+          $this->email = $_POST['email']; 
+          if ($this->crud->doesEmailExist($this->email)) { 
             $this->emailError = "Email already exists";
           } 
         }
@@ -144,7 +142,6 @@ class UserModel extends PageModel {
       
       //only change the password when there are no errors and the current password is correct
       if (!$this->currentPasswordError && !$this->newPasswordError && !$this->confirmNewPasswordError) {            
-        require_once 'db.php';
         //get current user's password
         $row = $this->crud->readUserById($this->sessionManager->getUserId());
         $currentPasswordHashed = $row->pwd;
@@ -273,8 +270,6 @@ class UserModel extends PageModel {
   //todo same name as the db function, maybe change one?
   public function registerNewUser() {
     $this->crud->createUser($this->email, $this->name, $this->password);
-    //include_once "./db.php";
-    //registerNewUser($this->email, $this->name, $this->password);
   }
 
   public function doLoginUser() {
@@ -284,8 +279,6 @@ class UserModel extends PageModel {
 
   public function updatePassword() {
     $this->crud->updatePassword($this->hashedPassword, $this->sessionManager->getUserId());
-    //include_once "./db.php";
-    //updatePassword($this->sessionManager->getUserId(), $this->hashedPassword);
   }
 }
 ?>
