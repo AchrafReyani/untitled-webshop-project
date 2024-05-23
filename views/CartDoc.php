@@ -6,7 +6,7 @@ class CartDoc extends ProductsDoc {
         if (!isset($_SESSION['shoppingCart']) || empty($_SESSION['shoppingCart'])) {
             echo 'Your shopping cart is empty.';
         } else {
-            $shoppingCart = $this->model->getShoppingCart(); //todo does this work?
+            $shoppingCart = $this->model->sessionManager->getShoppingCart(); //todo does this work?
             $products = $this->model->products;
             $total = 0;
           

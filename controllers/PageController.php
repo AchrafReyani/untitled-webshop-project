@@ -79,7 +79,7 @@ class PageController {
                 include_once "./models/ShopModel.php";
                 $this->model = $this->modelFactory->createModel("Shop");
                 $this->model->getWebshopProducts();
-                $this->model->getShoppingCart();
+                $this->model->sessionManager->getShoppingCart();
                 $this->model->handleCartActions();
                 break;
             case "Logout":
