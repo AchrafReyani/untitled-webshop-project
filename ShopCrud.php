@@ -15,14 +15,12 @@ class ShopCrud {
         $orderId = $this->crud->createRow($sql, $params);
         
         // Insert into orders_products table
-        $sql = "INSERT INTO order_rows (order_id, product_id, quantity) VALUES ";
-        $params = array();
         foreach ($shoppingCart as $productId => $quantity) {
-            $sql .= "(:orderId, :productId, :quantity),";
+            $sql = "INSERT INTO order_rows (order_id, product_id, quantity) VALUES (:orderId, :productId, :quantity);";
+            $params = array();
             $params[":orderId"] = $orderId;
             $params[":productId"] = $productId;
             $params[":quantity"] = $quantity;
-            $sql = rtrim($sql, ",") . ";";
             $this->crud->createRow($sql, $params);
         }
     }
