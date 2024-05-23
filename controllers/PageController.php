@@ -67,7 +67,6 @@ class PageController {
                 include_once "./models/ShopModel.php";
                 $this->model = $this->modelFactory->createModel("Shop");
                 $this->model->getWebshopProducts();
-                //echo "getwebshopproducts executed";
                 $this->model->handleCartActions();
                 break;
             case "Detail":

@@ -31,16 +31,7 @@ class ShopModel extends PageModel {
       }
       
      public function getWebshopProducts() {
-        include_once 'db.php';
-        $this->products = getAllProducts();
-        //temporary to check if it works
-        if (!empty($this->products)) {
-          //echo "Array is not empty. It contains products.";
-      } else {
-          echo "Array is empty. No products found.";
-      }
-      //dont have to return anymore?
-        //return $products;
+        $this->products = $this->crud->readAllProducts();
       }
 
       //is there another way to do this?
