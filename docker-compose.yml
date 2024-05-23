@@ -4,10 +4,10 @@ services:
   webshop_db:
     image: "mariadb"   # download and use the latest 'mariadb' image
     environment:       # some environment constants
-       MYSQL_ROOT_PASSWORD: <your_root_password_here>
-       MYSQL_DATABASE: <your_database_name_here>
-       MYSQL_USER: <your_app_username_here>
-       MYSQL_PASSWORD: <your_app_password_here>
+       MYSQL_ROOT_PASSWORD: wachtwoord
+       MYSQL_DATABASE: achraf_webshop
+       MYSQL_USER: WebShopUser
+       MYSQL_PASSWORD: mBAgRiGMZe7wPq5WAjb6
     ports:
       - "3310:3306"    # Expose port 3306 from the container as port 3310 on our machine
     volumes:
