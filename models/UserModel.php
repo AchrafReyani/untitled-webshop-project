@@ -1,4 +1,4 @@
-<?php //this class interacts with the database
+<?php
 include_once "./UserCrud.php";
 
 class UserModel extends PageModel {

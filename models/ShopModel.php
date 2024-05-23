@@ -1,4 +1,6 @@
-<?php //this class interacts with the database
+<?php
+include_once "./ShopCrud.php";
+
 class ShopModel extends PageModel {
     public $products = [];
 
