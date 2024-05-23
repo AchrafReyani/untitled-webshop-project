@@ -12,6 +12,6 @@ services:
       - "3310:3306"    # Expose port 3306 from the container as port 3310 on our machine
     volumes:
       - data:/var/lib/mysql                        # use /var/lib/mysql to store the data
-
+      - ./Database:/docker-entrypoint-initdb.d     # run all *.sql scripts from the ./Database folder as a starting point
 volumes:
   data:
