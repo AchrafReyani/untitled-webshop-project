@@ -251,14 +251,13 @@ class UserModel extends PageModel {
   //todo (#23)
   private function authenticateUser() {
     //logic to check file for valid userinfo
-    require_once 'db.php';
     try {
-      $user = getUserInfo($this->email);
+      $user = $this->crud->readUserByEmail($this->email);
       //if account is found and password matches hashed password
-      if (!empty($user) && password_verify($this->password, $user['pwd'])) {
+      if (!empty($user) && password_verify($this->password, $user->pwd)) {
         //echo "log in was succesfull";
-        $this->name = $user['username'];
-        $this->userId = $user['id'];
+        $this->name = $user->username;
+        $this->userId = $user->id;
         $this->valid = true;
       } else {
           //echo "login failed";

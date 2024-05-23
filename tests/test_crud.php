@@ -14,11 +14,11 @@ var_dump($crud->createRow($sql, $params));
 */
 
 //readOneRow
-/*
+
 $sql = "SELECT * FROM users WHERE id = :id";
 $params = [':id' => 25];
 var_dump($crud->readOneRow($sql, $params));
-*/
+
 
 //readMultipleRows
 /*
@@ -38,7 +38,9 @@ var_dump($crud->updateRow($sql, $params));
 */
 
 //deleteRow
+/*
 $sql = "DELETE FROM users WHERE id = :id";
 $params = [':id' => 31];
 var_dump($crud->deleteRow($sql, $params));
+*/
 ?>
