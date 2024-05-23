@@ -272,8 +272,9 @@ class UserModel extends PageModel {
 
   //todo same name as the db function, maybe change one?
   public function registerNewUser() {
-    include_once "./db.php";
-    registerNewUser($this->email, $this->name, $this->password);
+    $this->crud->createUser($this->email, $this->name, $this->password);
+    //include_once "./db.php";
+    //registerNewUser($this->email, $this->name, $this->password);
   }
 
   public function doLoginUser() {
@@ -282,8 +283,9 @@ class UserModel extends PageModel {
   }
 
   public function updatePassword() {
-    include_once "./db.php";
-    updatePassword($this->sessionManager->getUserId(), $this->hashedPassword);
+    $this->crud->updatePassword($this->hashedPassword, $this->sessionManager->getUserId());
+    //include_once "./db.php";
+    //updatePassword($this->sessionManager->getUserId(), $this->hashedPassword);
   }
 }
 ?>

@@ -24,8 +24,13 @@ class UserCrud {
         return $row;
     }
 
-    public function updatePassword($newPassword) {
-        
+    public function updatePassword($newPassword, $userId) {
+        $sql = "UPDATE users SET pwd = :newPassword WHERE id = :userId";
+        $params = [
+            ':newPassword' => $newPassword,
+            ':userId' => $userId
+        ];
+        $this->crud->updateRow($sql, $params);
     }
 
     public function doesEmailExist($email) {
