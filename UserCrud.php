@@ -7,16 +7,29 @@ class UserCrud {
         $this->crud = $crud;
     }
 
-    public function createUser() {
-
+    public function createUser($email, $name, $password) {
+        $sql = "INSERT INTO users (email, username, pwd) VALUES (:email, :username, :pwd)";
+        $params = [
+            ':email' => $email,
+            ':username' => $name,
+            ':pwd' => password_hash($password, PASSWORD_DEFAULT)  // Securely hash the password
+        ];
+        $this->crud->createRow($sql, $params);
     }
 
-    public function readUserByEmail() {
-
+    public function readUserByEmail($email) {
+        $sql = "SELECT * FROM users WHERE email = :email";
+        $params = array(":email"=>$email);
+        $row = $this->crud->readOneRow($sql, $params);
+        return $row;
     }
 
-    public function updateUser() {
+    public function updatePassword($newPassword) {
+        
+    }
 
+    public function doesEmailExist($email) {
+        return !empty($this->readUserByEmail($email));
     }
 
     //this isn't used atm
