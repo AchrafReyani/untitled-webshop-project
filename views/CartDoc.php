@@ -13,11 +13,11 @@ class CartDoc extends ProductsDoc {
             //loop through each item in the shoppingcart and check the database for matching ids
             foreach ($shoppingCart as $id => $quantity) {
                 foreach ($products as $product) {
-                if($product['id'] == $id) {
+                if($product->id == $id) {
                     echo '<div class="shoppingCart">';
-                    $subtotal = $product['price'] * $quantity;
+                    $subtotal = $product->price * $quantity;
                     $total += $subtotal;
-                    echo '<img src='.$product['image'].' alt="" class="shoppingCartImage"><ul> <li>'.$product['name'].'</li> <li>quantity: '.$quantity.'</li> <li> subtotal: $'.$subtotal.'</li></ul>';
+                    echo '<img src='.$product->image.' alt="" class="shoppingCartImage"><ul> <li>'.$product->name.'</li> <li>quantity: '.$quantity.'</li> <li> subtotal: $'.$subtotal.'</li></ul>';
                     $this->addToOrderButton($id);
                     $this->removeFromOrderButton($id);
                     echo '</div>';

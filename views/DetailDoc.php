@@ -9,11 +9,11 @@ class DetailDoc extends ProductsDoc {
       
     echo "<div class = 'product-details'>";
     foreach ($this->model->products as $product) {
-      $id = $product["id"];
-      $name = $product["name"];
-      $description = $product["description"];
-      $price = $product["price"];
-      $image = $product["image"];
+      $id = $product->id;
+      $name = $product->name;
+      $description = $product->description;
+      $price = $product->price;
+      $image = $product->image;
     
       //using superglobal array to access the correct id
       if ($id == $_GET['id']) {

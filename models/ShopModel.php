@@ -9,59 +9,32 @@ class ShopModel extends PageModel {
         $this->crud = $crud;
     }
 
-    public function getWebShopProduct() {
-        $product = NULL;
-        $generalError = "";
+    public function getWebshopProducts() {
+      $this->products = $this->crud->readAllProducts();
+    }
       
-        try {
-          //display nothing (id=0) when no id has been set
-          $id = isset($_GET['id']) ? (int) $_GET['id'] : 0;
-          if ($id != 0) {
-            include_once 'db.php';
-            $product = getProductDetails($id);
-          }
-          if(empty($product)) {
-            $generalError = "The product with id: ".$id." was not found.";
-          }
-        } catch (Exception $e) {
-            $generalError = "A technical error ocurred, please come back later";
-            logError("GetWebshopProductFailed: " . $e->getMessage());
-        }
-        return ['product' => $product, 'generalError' => $generalError];
+    public function handleCartActions() {
+      if (isset($_POST['action'])) {
+        $action = $_POST['action'];
+      } else {
+        $action = "";
       }
-      
-     public function getWebshopProducts() {
-        $this->products = $this->crud->readAllProducts();
+      switch ($action) {
+        case 'addToShoppingCart';
+          $id = $_POST['id'];
+          $this->sessionManager->addToShoppingCart($id);
+          break;
+        case 'removeFromShoppingCart';
+          $id = $_POST['id'];
+          $this->sessionManager->removeFromShoppingCart($id);
+          break;
+        case 'submitShoppingCart'; 
+          //also uses functions from session manager, is this okay?
+          placeOrder($this->sessionManager->getShoppingCart(), $this->sessionManager->getUserId());
+          $this->sessionManager->deleteShoppingCart();//TODO maybe make seperate function for emptying thhe shopping cart and completely unsetting it for logging out
+          $this->sessionManager->makeShoppingCart();
+          break;
       }
-
-      //is there another way to do this?
-      public function getShoppingCart() {
-        return $this->sessionManager->getShoppingCart();
-      }
-      
-      public function handleCartActions() {
-        if (isset($_POST['action'])) {
-          $action = $_POST['action'];
-        } else {
-          $action = "";
-        }
-        switch ($action)
-        {
-          case 'addToShoppingCart';
-            $id = $_POST['id'];
-            $this->sessionManager->addToShoppingCart($id);
-            break;
-          case 'removeFromShoppingCart';
-            $id = $_POST['id'];
-            $this->sessionManager->removeFromShoppingCart($id);
-            break;
-          case 'submitShoppingCart'; 
-            //also uses functions from session manager, is this okay?
-            placeOrder($this->getShoppingCart(), $this->sessionManager->getUserId());
-            $this->sessionManager->deleteShoppingCart();//TODO maybe make seperate function for emptying thhe shopping cart and completely unsetting it for logging out
-            $this->sessionManager->makeShoppingCart();
-            break;
-        }
         return $action;
       }
 }
