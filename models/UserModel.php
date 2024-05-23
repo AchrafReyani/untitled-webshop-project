@@ -146,7 +146,8 @@ class UserModel extends PageModel {
       if (!$this->currentPasswordError && !$this->newPasswordError && !$this->confirmNewPasswordError) {            
         require_once 'db.php';
         //get current user's password
-        $currentPasswordHashed = getCurrentPassword($this->sessionManager->getUserId());
+        $row = $this->crud->readUserById($this->sessionManager->getUserId());
+        $currentPasswordHashed = $row->pwd;
         if (password_verify($this->currentPassword, $currentPasswordHashed)) {
           $this->hashedPassword = password_hash($this->newPassword, PASSWORD_DEFAULT);
           $this->valid = true;  

@@ -24,6 +24,13 @@ class UserCrud {
         return $row;
     }
 
+    public function readUserById($id) {
+        $sql = "SELECT * FROM users WHERE id = :id";
+        $params = array(":id"=>$id);
+        $row = $this->crud->readOneRow($sql, $params);
+        return $row;
+    }
+
     public function updatePassword($newPassword, $userId) {
         $sql = "UPDATE users SET pwd = :newPassword WHERE id = :userId";
         $params = [
