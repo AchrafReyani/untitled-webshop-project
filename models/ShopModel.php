@@ -29,10 +29,14 @@ class ShopModel extends PageModel {
           $this->sessionManager->removeFromShoppingCart($id);
           break;
         case 'submitShoppingCart'; 
-          //also uses functions from session manager, is this okay?
+          try {
           $this->crud->createOrder($this->sessionManager->getShoppingCart(), $this->sessionManager->getUserId());
-          $this->sessionManager->deleteShoppingCart();//TODO maybe make seperate function for emptying thhe shopping cart and completely unsetting it for logging out
+          $this->sessionManager->deleteShoppingCart();//kinda useless since makeshoppingcart already empties the shoppingcart by default.
           $this->sessionManager->makeShoppingCart();
+          } catch (PDOException $e) {
+            $this->generalError = "An error has ocurred while processing your order.";
+            $this->logError("create order failed: " . $e->getMessage());
+          }
           break;
       }
         return $action;
