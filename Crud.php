@@ -1,23 +1,28 @@
 <?php
 class Crud {
-    private $pdo;
+    private $pdo = NULL;
 
     public function __construct() {
-        try {
-            $serverName = getenv("MYSQL_SERVER");
-            $dbUsername = getenv("MYSQL_ACHRAF_WEBSHOP_USER");
-            $dbPassword = getenv("MYSQL_ACHRAF_WEBSHOP_PASSWORD");
-            $dbName = getenv("MYSQL_ACHRAF_WEBSHOP_DATABASE");
-            $dbPort = getenv("MYSQL_SERVER_PORT");
-
-            $dsn = "mysql:host=" . $serverName . "; port=". $dbPort ."; dbname=" . $dbName;
-            $this->pdo = new PDO($dsn, $dbUsername, $dbPassword);
-            // Set the PDO error mode to exception
-            $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        } catch (PDOException $e) {
-            echo "Connection failed sql: " . $e->getMessage();
-        }
+        $this->connectToDatabase();
     }
+
+    private function connectToDatabase() {
+        $serverName = getenv("MYSQL_SERVER");
+        $dbUsername = getenv("MYSQL_ACHRAF_WEBSHOP_USER");
+        $dbPassword = getenv("MYSQL_ACHRAF_WEBSHOP_PASSWORD");
+        $dbName = getenv("MYSQL_ACHRAF_WEBSHOP_DATABASE");
+        $dbPort = getenv("MYSQL_SERVER_PORT");
+        if (empty($this->pdo)) {
+            try {
+            $dsn = "mysql:host=" . $serverName . "; port=". $dbPort ."; dbname=" . $dbName;
+                $this->pdo = new PDO($dsn, $dbUsername, $dbPassword);
+                // Set the PDO error mode to exception
+                $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            } catch (PDOException $e) {
+                echo "Connection failed sql: " . $e->getMessage();
+            }
+        }
+    }   
 
     public function createRow($sql, $params) {
         try {
