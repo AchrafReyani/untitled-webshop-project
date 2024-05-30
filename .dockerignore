@@ -1,0 +1,8 @@
+docker-compose.yml
+.dockerignore
+README.md
+Dockerfile
+.git/
+tests/
+Diagrams/
+Database/

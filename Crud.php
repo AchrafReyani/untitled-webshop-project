@@ -1,20 +1,27 @@
 <?php
 class Crud {
     private $pdo;
-    private $serverName = "localhost";
-    private $dbUsername = "WebShopUser";
-    private $dbPassword = "mBAgRiGMZe7wPq5WAjb6";
-    private $dbName = "achraf_webshop";
+    private $serverName = "";
+    private $dbUsername = "";
+    private $dbPassword = "";
+    private $dbName = "";
+    private $dbPort = "";
 
     public function __construct() {
         try {
-            $dsn = "mysql:host=" . $this->serverName . ";dbname=" . $this->dbName;
+            $this->serverName = getenv("MYSQL_SERVER");
+            $this->dbUsername = getenv("MYSQL_ACHRAF_WEBSHOP_USER");
+            $this->dbPassword = getenv("MYSQL_ACHRAF_WEBSHOP_PASSWORD");
+            $this->dbName = getenv("MYSQL_ACHRAF_WEBSHOP_DATABASE");
+            $this->dbPort = getenv("MYSQL_SERVER_PORT");
+
+            $dsn = "mysql:host=" . $this->serverName . "; port=". $this->dbPort ."; dbname=" . $this->dbName;
             $this->pdo = new PDO($dsn, $this->dbUsername, $this->dbPassword);
             // Set the PDO error mode to exception
             $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             echo "Connected successfully"; 
         } catch (PDOException $e) {
-            echo "Connection failed: " . $e->getMessage();
+            echo "Connection failed sql: " . $e->getMessage();
         }
     }
 

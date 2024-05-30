@@ -13,7 +13,7 @@ class BasicDoc extends HtmlDoc {
     }
 
     private function showCSSLinks() {
-        echo "<link rel=\"stylesheet\" href=\"../CSS/stylesheet.css\">" ;
+        echo "<link rel=\"stylesheet\" href=\"../css/stylesheet.css\">" ;
     }
 
     private function showTitle() {

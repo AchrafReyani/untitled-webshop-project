@@ -3,6 +3,7 @@ include_once "./ShopCrud.php";
 
 class ShopModel extends PageModel {
     public $products = [];
+    public $crud;
 
     public function __construct($pageModel, ShopCrud $crud) {
         PARENT::__construct($pageModel);

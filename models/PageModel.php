@@ -8,6 +8,7 @@ class PageModel {
     public $errors = array();
     public $generalError = "";
     public $sessionManager;
+    public $action;
 
     public function __construct($copy) {
         if(empty($copy)) {

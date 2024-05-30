@@ -4,14 +4,26 @@ services:
   webshop_db:
     image: "mariadb"   # download and use the latest 'mariadb' image
     environment:       # some environment constants
-       MYSQL_ROOT_PASSWORD: "wachtwoord"
-       MYSQL_DATABASE: "achraf_webshop"
-       MYSQL_USER: "mainuser"
-       MYSQL_PASSWORD: "wachtwoord"
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_ACHRAF_WEBSHOP_DATABASE}
+      MYSQL_USER: ${MYSQL_ACHRAF_WEBSHOP_USER}
+      MYSQL_PASSWORD: ${MYSQL_ACHRAF_WEBSHOP_PASSWORD}
     ports:
       - "3310:3306"    # Expose port 3306 from the container as port 3310 on our machine
     volumes:
       - data:/var/lib/mysql                        # use /var/lib/mysql to store the data
       - ./Database:/docker-entrypoint-initdb.d     # run all *.sql scripts from the ./Database folder as a starting point
+
+  webshop:
+    image: "webshop"
+    environment:       # some environment constants
+      MYSQL_SERVER: webshop_db  # refer to the image 'webshop_db' as server
+      MYSQL_SERVER_PORT: 3306
+      MYSQL_ACHRAF_WEBSHOP_DATABASE: ${MYSQL_ACHRAF_WEBSHOP_DATABASE}
+      MYSQL_ACHRAF_WEBSHOP_USER: ${MYSQL_ACHRAF_WEBSHOP_USER}
+      MYSQL_ACHRAF_WEBSHOP_PASSWORD: ${MYSQL_ACHRAF_WEBSHOP_PASSWORD}
+    ports:
+      - "8081:80"    # Expose port 80 from the container as port 8081 on our machine
+
 volumes:
   data:
