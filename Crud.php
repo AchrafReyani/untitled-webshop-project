@@ -1,13 +1,14 @@
 <?php
 class Crud {
     private $pdo;
-    private $serverName = "";
-    private $dbUsername = "";
-    private $dbPassword = "";
-    private $dbName = "";
-    private $dbPort = "";
 
     public function __construct() {
+        $serverName = "";
+        $dbUsername = "";
+        $dbPassword = "";
+        $dbName = "";
+        $dbPort = "";
+        
         try {
             $this->serverName = getenv("MYSQL_SERVER");
             $this->dbUsername = getenv("MYSQL_ACHRAF_WEBSHOP_USER");
