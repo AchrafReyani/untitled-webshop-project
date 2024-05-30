@@ -273,8 +273,11 @@ class UserModel extends PageModel {
   }
 
   public function doLoginUser() {
+    try {
     $this->sessionManager->doLoginUser($this->name, $this->userId);
-    $this->errors['generalError'] = "Login failed.";
+    } catch (Exception $e) {
+      $this->generalError = "Something went wrong when trying to login.";
+    }
   }
 
   public function updatePassword() {
