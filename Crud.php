@@ -101,7 +101,6 @@ class Crud {
         }
     }
 
-    //we don't use this?
     public function deleteRow($sql, $params) {
         try {
             $stmt = $this->prepareBindExecute($sql, $params);
