@@ -75,33 +75,31 @@ class Crud {
     }
 
     public function readMultipleRows($sql, $params) {
-        if (empty($this->pdo)) {
-            try {
-                // Prepare the SQL statement
-                $stmt = $this->pdo->prepare($sql);
+        try {
+            // Prepare the SQL statement
+            $stmt = $this->pdo->prepare($sql);
 
-                // Bind the parameters to the statement
-                foreach ($params as $varName => $value) {
-                    $stmt->bindValue($varName, $value);
-                }
+            // Bind the parameters to the statement
+            foreach ($params as $varName => $value) {
+                $stmt->bindValue($varName, $value);
+            }
 
-                // Execute the statement
-                $stmt->execute();
+            // Execute the statement
+            $stmt->execute();
 
-                // Set the fetch mode to fetch as objects
-                $stmt->setFetchMode(PDO::FETCH_OBJ);
+            // Set the fetch mode to fetch as objects
+            $stmt->setFetchMode(PDO::FETCH_OBJ);
 
-                // Fetch all rows
-                $rows = $stmt->fetchAll();
+            // Fetch all rows
+            $rows = $stmt->fetchAll();
 
-                // Return the fetched rows
-                return $rows;
+            // Return the fetched rows
+            return $rows;
             } catch (PDOException $e) {
                 // Log the error message and return false to indicate failure
                 error_log("Retrieval failed: " . $e->getMessage());
                 return false;
             }
-        }
     }
 
     public function updateRow($sql, $params) {
