@@ -3,12 +3,6 @@ class Crud {
     private $pdo;
 
     public function __construct() {
-        $serverName = "";
-        $dbUsername = "";
-        $dbPassword = "";
-        $dbName = "";
-        $dbPort = "";
-
         try {
             $serverName = getenv("MYSQL_SERVER");
             $dbUsername = getenv("MYSQL_ACHRAF_WEBSHOP_USER");
@@ -20,7 +14,6 @@ class Crud {
             $this->pdo = new PDO($dsn, $dbUsername, $dbPassword);
             // Set the PDO error mode to exception
             $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            echo "Connected successfully"; 
         } catch (PDOException $e) {
             echo "Connection failed sql: " . $e->getMessage();
         }
