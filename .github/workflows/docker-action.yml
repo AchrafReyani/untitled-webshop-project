@@ -18,7 +18,7 @@ jobs:
 
 
     - name: Build Docker image
-      run: docker build -t achrafreyani/webshop:latest .
+      run: docker build -t "${{ secrets.DOCKER_USERNAME }}"/"${{ secrets.DOCKER_IMAGE }}":latest .
 
     - name: Push Docker image
-      run: docker push achrafreyani/webshop:latest
+      run: docker push "${{ secrets.DOCKER_USERNAME }}"/"${{ secrets.DOCKER_IMAGE }}":latest

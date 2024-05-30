@@ -26,7 +26,7 @@ class SessionManager {
         $_SESSION['shoppingCart'] = [];
     }
 
-    //gets called either when an order has been made or if the user logs out.
+    //Gets called either when an order has been made or if the user logs out.
     public function deleteShoppingCart() {
         unset($_SESSION['shoppingCart']);
     }
