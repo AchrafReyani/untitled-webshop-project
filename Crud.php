@@ -24,18 +24,22 @@ class Crud {
         }
     }   
 
+    private function prepareBindExecute($sql, $params) {
+        // Prepare the SQL statement
+        $stmt = $this->pdo->prepare($sql);
+        // Bind the parameters to the statement
+        foreach ($params as $varName => $value) {
+            $stmt->bindValue($varName, $value);
+        }
+        // Execute the statement
+        $stmt->execute();
+        // Return the object
+        return $stmt;
+    }
+
     public function createRow($sql, $params) {
         try {
-            // Prepare the SQL statement
-            $stmt = $this->pdo->prepare($sql);
-
-            // Bind the parameters to the statement
-            foreach ($params as $varName => $value) {
-                $stmt->bindValue($varName, $value);
-            }
-
-            // Execute the statement
-            $stmt->execute();
+            $stmt = $this->prepareBindExecute($sql, $params);
 
             // Return the last inserted ID
             return $this->pdo->lastInsertId();
@@ -48,16 +52,7 @@ class Crud {
 
     public function readOneRow($sql, $params) {
         try {
-            // Prepare the SQL statement
-            $stmt = $this->pdo->prepare($sql);
-
-            // Bind the parameters to the statement
-            foreach ($params as $varName => $value) {
-                $stmt->bindValue($varName, $value);
-            }
-
-            // Execute the statement
-            $stmt->execute();
+            $stmt = $this->prepareBindExecute($sql, $params);
 
             // Set the fetch mode to fetch as an object
             $stmt->setFetchMode(PDO::FETCH_OBJ);
@@ -76,16 +71,7 @@ class Crud {
 
     public function readMultipleRows($sql, $params) {
         try {
-            // Prepare the SQL statement
-            $stmt = $this->pdo->prepare($sql);
-
-            // Bind the parameters to the statement
-            foreach ($params as $varName => $value) {
-                $stmt->bindValue($varName, $value);
-            }
-
-            // Execute the statement
-            $stmt->execute();
+            $stmt = $this->prepareBindExecute($sql, $params);
 
             // Set the fetch mode to fetch as objects
             $stmt->setFetchMode(PDO::FETCH_OBJ);
@@ -104,16 +90,7 @@ class Crud {
 
     public function updateRow($sql, $params) {
         try {
-            // Prepare the SQL statement
-            $stmt = $this->pdo->prepare($sql);
-
-            // Bind the parameters to the statement
-            foreach ($params as $varName => $value) {
-                $stmt->bindValue($varName, $value);
-            }
-
-            // Execute the statement
-            $stmt->execute();
+            $stmt = $this->prepareBindExecute($sql, $params);
 
             // Return the number of affected rows
             return $stmt->rowCount();
@@ -127,16 +104,7 @@ class Crud {
     //we don't use this?
     public function deleteRow($sql, $params) {
         try {
-            // Prepare the SQL statement
-            $stmt = $this->pdo->prepare($sql);
-
-            // Bind the parameters to the statement
-            foreach ($params as $varName => $value) {
-                $stmt->bindValue($varName, $value);
-            }
-
-            // Execute the statement
-            $stmt->execute();
+            $stmt = $this->prepareBindExecute($sql, $params);
 
             // Return the number of affected rows
             return $stmt->rowCount();
