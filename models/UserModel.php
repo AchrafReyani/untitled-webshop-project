@@ -225,22 +225,10 @@ class UserModel extends PageModel {
       $requiredFields = false;
       if (!empty($_POST["pronouns"]) && !empty($_POST["name"]) && !empty($_POST["message"])) {
         $requiredFields = true;
-        }
-      
-      //TODO check to see if this can be made smaller
-      if ($this->communication == "email" && empty($_POST["email"])) {
-        $this->emailError = "Please enter a valid email address";
-      } else if ($this->communication == "email" && !empty($_POST["email"]) &&  $requiredFields ) {
-          $this->valid = true;
-        }
-      
-      if ($this->communication == "phone" && empty($_POST["phonenumber"])) {
-        $this->phonenumberError = "Please enter a valid phone number";
-      } else if ($this->communication == "phone" && !empty($_POST["phonenumber"]) &&  $requiredFields) {
-          $this->valid = true;
-        }
-            
-      if ($this->communication == "postal" && !empty($_POST["street"]) && !empty($_POST["housenumber"]) && !empty($_POST["postalcode"]) && !empty($_POST["city"]) &&  !empty($_POST["pronouns"]) && !empty($_POST["name"]) && !empty($_POST["message"])) { 
+      }
+
+      //if communication method, coressponding field(s) and required fields are filled in set valid to true
+      if ($this->communication == "email" && !empty($_POST["email"]) &&  $requiredFields || $this->communication == "phone" && !empty($_POST["phonenumber"]) &&  $requiredFields || $this->communication == "postal" && !empty($_POST["street"]) && !empty($_POST["housenumber"]) && !empty($_POST["postalcode"]) && !empty($_POST["city"]) &&  !empty($_POST["pronouns"]) && !empty($_POST["name"]) && !empty($_POST["message"])) {
         $this->valid = true;
       }
     }
