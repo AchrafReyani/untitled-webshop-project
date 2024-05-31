@@ -49,13 +49,13 @@ class UserModel extends PageModel {
 
   public function validateLogin() {
     if ($this->isPost) {
-      $this->email = getRequestVar("email");
+      $this->email = $this->getRequestVar("email");
       if (empty($this->email)) {
         $this->emailError = "Email is required";
       }
       
-      $this->password = getRequestVar("password");
-      if (empty($_POST["password"])) {
+      $this->password = $this->getRequestVar("password");
+      if (empty($this->password)) {
         $this->passwordError = "Password is required";
       }
 
@@ -72,7 +72,7 @@ class UserModel extends PageModel {
       $this->phonenumber = $this->getRequestVar("phonenumber");
       $this->street = $this->getRequestVar("street");
       $this->housenumber = $this->getRequestVar("housenumber");
-      $this->postal = $this->getRequestVar("postal");
+      $this->postalcode = $this->getRequestVar("postal");
       $this->city= $this->getRequestVar("city");
       $this->communication = $this->getRequestVar("communication");
       $this->message = $this->getRequestVar("message");
