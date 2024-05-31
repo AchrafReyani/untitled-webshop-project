@@ -40,7 +40,6 @@ class Crud {
     public function createRow($sql, $params) {
         try {
             $stmt = $this->prepareBindExecute($sql, $params);
-
             // Return the last inserted ID
             return $this->pdo->lastInsertId();
         } catch (PDOException $e) {

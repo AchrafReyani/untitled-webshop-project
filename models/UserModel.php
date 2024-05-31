@@ -253,9 +253,9 @@ class UserModel extends PageModel {
       }
   }
 
-  //todo same name as the db function, maybe change one?
   public function registerNewUser() {
-    $this->crud->createUser($this->email, $this->name, $this->password);
+    $hashedPasswordForRegistration = password_hash($this->password, PASSWORD_DEFAULT);
+    $this->crud->createUser($this->email, $this->name, $hashedPasswordForRegistration);
   }
 
   public function doLoginUser() {

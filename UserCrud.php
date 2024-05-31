@@ -7,12 +7,12 @@ class UserCrud {
         $this->crud = $crud;
     }
 
-    public function createUser($email, $name, $password) {
+    public function createUser($email, $name, $hashedPassword) {
         $sql = "INSERT INTO users (email, username, pwd) VALUES (:email, :username, :pwd)";
         $params = [
             ':email' => $email,
             ':username' => $name,
-            ':pwd' => password_hash($password, PASSWORD_DEFAULT)  // Securely hash the password
+            ':pwd' => $hashedPassword  // Securely hash the password
         ];
         $this->crud->createRow($sql, $params);
     }
