@@ -49,23 +49,61 @@ class UserModel extends PageModel {
 
   public function validateLogin() {
     if ($this->isPost) {
-      if (empty($_POST["email"])) {
+      $this->email = getRequestVar("email");
+      if (empty($this->email)) {
         $this->emailError = "Email is required";
-      } else {
-          $this->email = $_POST['email'];
-        }
+      }
       
+      $this->password = getRequestVar("password");
       if (empty($_POST["password"])) {
         $this->passwordError = "Password is required";
-      } else {
-          $this->password = $_POST['password'];
-        }
+      }
+
+      // TODO: Add 'if' all errors are empty here before authenticating 
       $this->authenticateUser();
     }    
   }
 
   public function validateRegistration() {    
     if ($this->isPost) {
+      $this->pronouns = $this->getRequestVar("pronouns");
+      $this->name = $this->getRequestVar("name");
+      $this->email = $this->getRequestVar("email");
+      $this->phonenumber = $this->getRequestVar("phonenumber");
+      $this->street = $this->getRequestVar("street");
+      $this->housenumber = $this->getRequestVar("housenumber");
+      $this->postal = $this->getRequestVar("postal");
+      $this->city= $this->getRequestVar("city");
+      $this->communication = $this->getRequestVar("communication");
+      $this->message = $this->getRequestVar("message");
+
+
+      $isEmailRequired = $this->communication == "email";
+      $isPhoneRequired = $this->communication == "phone";
+      $isPostalRequired = $this->communication == "postal" || !empty($this->street) || !empty($this->housenumber) || !empty($this->postal) || !empty($this->city);
+
+      //required fields --------------------
+      if (empty($this->pronouns)) {
+
+      }
+
+      if (empty($this->name)) {
+
+      }
+
+      if (empty($this->message)) {
+
+      }
+
+      //conditional fields --------------------
+      if (empty($this->email)) {
+        if($isEmailRequired) {
+          $this->emailError = "Email is required.";
+        }
+      } 
+
+
+
       //save input if valid and send error message when not valid   
       //if email is empty give required error, if it exists check for duplicate emails in the database. 
       if (empty($_POST["email"])) {

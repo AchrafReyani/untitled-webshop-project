@@ -25,7 +25,7 @@ class PageModel {
     }
 
     protected function getRequestVar($key, $default = "") {
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        if ($this->isPost) {
           $value = isset($_POST[$key]) ? trim($_POST[$key]) : $default;
         } else {
           $value = isset($_GET[$key]) ? trim($_GET[$key]) : $default;

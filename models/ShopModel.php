@@ -15,11 +15,8 @@ class ShopModel extends PageModel {
     }
       
     public function handleCartActions() {
-      if (isset($_POST['action'])) {
-        $action = $_POST['action'];
-      } else {
-        $action = "";
-      }
+      $action = getRequestedVar('action');
+      
       switch ($action) {
         case 'addToShoppingCart';
           $id = $_POST['id'];
