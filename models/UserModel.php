@@ -98,12 +98,47 @@ class UserModel extends PageModel {
       //conditional fields --------------------
       if (empty($this->email)) {
         if($isEmailRequired) {
-          $this->emailError = "Email is required.";
+          $this->emailError = "Email is required";
         }
       } 
+      //extra email checking
 
+      if(empty($this->phonenumber)) {
+        if ($isPhoneRequired) {
+          $this->phonenumberError = "Phone number is required";
+        }
+      }
+      //extra phone number checking
 
+      if (empty($this->street)) {
+        if ($isPostalRequired) {
+          $this->streetError = "Street is required";
+        }
+      }
 
+      if (empty($this->housenumber)) {
+        if ($isPostalRequired) {
+          $this->housenumberError = "Housenumber is required";
+        }
+      }
+
+      if (empty($this->postal)) {
+        if ($isPostalRequired) {
+          $this->postalError = "Postalcode is required";
+        }
+      }
+
+      if (empty($this->city)) {
+        if ($isPostalRequired) {
+          $this->cityError = "City is required";
+      }
+
+      // Last set the valid flag when there are no errors
+      $this->valid = empty($this->pronounsError) && empty($this->nameError) && /* ... */ empty($this->messageError);
+    }
+
+    //everything past this will need to be removed when the fucntion above is fixed
+     
       //save input if valid and send error message when not valid   
       //if email is empty give required error, if it exists check for duplicate emails in the database. 
       if (empty($_POST["email"])) {
@@ -146,7 +181,8 @@ class UserModel extends PageModel {
     }
   }
 
-  function validateChangePassword() {
+
+  public function validateChangePassword() {
     if ($_SERVER ['REQUEST_METHOD'] === 'POST') {
       //print error messages for empty fields
       if (empty($_POST["currentPassword"])) {
@@ -193,7 +229,7 @@ class UserModel extends PageModel {
     }
   }
 
-  function validateForm() { 
+  public function validateForm() { 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       //save input if valid and send error message when not valid
       //mandatory fields
@@ -269,7 +305,7 @@ class UserModel extends PageModel {
         }
     }
   }
-
+ 
   //todo (#23)
   private function authenticateUser() {
     //logic to check file for valid userinfo
