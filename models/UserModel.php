@@ -65,6 +65,99 @@ class UserModel extends PageModel {
   }
 
   public function validateRegistration() {    
+    
+      //save input if valid and send error message when not valid   
+      //if email is empty give required error, if it exists check for duplicate emails in the database. 
+      if (empty($_POST["email"])) {
+        $this->emailError = "Email is required";
+      } else {
+          $this->email = $_POST['email']; 
+          if ($this->crud->readIfEmailExists($this->email)) { 
+            $this->emailError = "Email already exists";
+          } 
+        }
+
+      if (empty($_POST["name"])) {
+        $this->nameError = "Name is required";
+      } else {
+            $this->name = $_POST['name'];
+          }
+
+      if (empty($_POST["password"])) {
+        $this->passwordError = "Password is required";
+      } else {
+            $this->password = $_POST['password'];
+        }
+      
+      if (empty($_POST["confirmPassword"])) {
+        $this->confirmPasswordError = "Confirm password is required";
+      } else {
+            $this->confirmPassword = $_POST['confirmPassword'];
+        }
+      
+      //check if passwords match
+      if ($this->password != $this->confirmPassword && ($this->password != "" && $this->confirmPassword != "")) {
+        $this->passwordError = "Passwords do not match";
+        $this->confirmPasswordError = "Passwords do not match";
+      }
+        
+      //if no errors were found set valid to true  
+      if ($this->emailError == "" && $this->nameError == "" && $this->passwordError == "" && $this->confirmPasswordError == "") {
+        $this->valid = true;
+      }
+    }
+  
+
+
+  public function validateChangePassword() {
+    if ($_SERVER ['REQUEST_METHOD'] === 'POST') {
+      //print error messages for empty fields
+      if (empty($_POST["currentPassword"])) {
+        $this->currentPasswordError = "Current password is required";
+      } else {
+          $this->currentPassword = $_POST['currentPassword'];
+        }
+      
+      if (empty($_POST["newPassword"])) {
+        $this->newPasswordError = "New password is required";
+      } else {
+          $this->newPassword = $_POST['newPassword'];
+        }
+
+      if (empty($_POST["confirmNewPassword"])) {
+        $this->confirmNewPasswordError = "Confirm new password is required";
+      } else {
+          $this->confirmNewPassword = $_POST['confirmNewPassword'];
+        }
+      
+      //check if passwords match
+      if ($this->newPassword != $this->confirmNewPassword && ($this->newPassword != "" && $this->confirmNewPassword != "")) {
+        $this->newPasswordError = "New passwords do not match";
+        $this->confirmNewPasswordError = "New passwords do not match";
+      }
+      
+      //check if current password is not the same as new password
+      if ($this->currentPassword == $this->newPassword) {
+        $this->newPasswordError = "New password cannot be the same as current password";
+      }
+      
+      //only change the password when there are no errors and the current password is correct
+      if (!$this->currentPasswordError && !$this->newPasswordError && !$this->confirmNewPasswordError) {            
+        //get current user's password
+        $row = $this->crud->readUserById($this->sessionManager->getUserId());
+        $currentPasswordHashed = $row->pwd;
+        if (password_verify($this->currentPassword, $currentPasswordHashed)) {
+          $this->hashedPassword = password_hash($this->newPassword, PASSWORD_DEFAULT);
+          $this->valid = true;  
+        } else {
+            $this->currentPasswordError = "Current password is incorrect";
+          }
+      }
+    }
+  }
+
+  public function validateForm() { 
+
     if ($this->isPost) {
       $this->pronouns = $this->getRequestVar("pronouns");
       $this->name = $this->getRequestVar("name");
@@ -137,99 +230,8 @@ class UserModel extends PageModel {
       $this->valid = empty($this->pronounsError) && empty($this->nameError) && /* ... */ empty($this->messageError);
     }
 
-    //everything past this will need to be removed when the fucntion above is fixed
+    //!!!everything past this will need to be removed when the fucntion above is fixed!!!
      
-      //save input if valid and send error message when not valid   
-      //if email is empty give required error, if it exists check for duplicate emails in the database. 
-      if (empty($_POST["email"])) {
-        $this->emailError = "Email is required";
-      } else {
-          $this->email = $_POST['email']; 
-          if ($this->crud->readIfEmailExists($this->email)) { 
-            $this->emailError = "Email already exists";
-          } 
-        }
-
-      if (empty($_POST["name"])) {
-        $this->nameError = "Name is required";
-      } else {
-            $this->name = $_POST['name'];
-          }
-
-      if (empty($_POST["password"])) {
-        $this->passwordError = "Password is required";
-      } else {
-            $this->password = $_POST['password'];
-        }
-      
-      if (empty($_POST["confirmPassword"])) {
-        $this->confirmPasswordError = "Confirm password is required";
-      } else {
-            $this->confirmPassword = $_POST['confirmPassword'];
-        }
-      
-      //check if passwords match
-      if ($this->password != $this->confirmPassword && ($this->password != "" && $this->confirmPassword != "")) {
-        $this->passwordError = "Passwords do not match";
-        $this->confirmPasswordError = "Passwords do not match";
-      }
-        
-      //if no errors were found set valid to true  
-      if ($this->emailError == "" && $this->nameError == "" && $this->passwordError == "" && $this->confirmPasswordError == "") {
-        $this->valid = true;
-      }
-    }
-  }
-
-
-  public function validateChangePassword() {
-    if ($_SERVER ['REQUEST_METHOD'] === 'POST') {
-      //print error messages for empty fields
-      if (empty($_POST["currentPassword"])) {
-        $this->currentPasswordError = "Current password is required";
-      } else {
-          $this->currentPassword = $_POST['currentPassword'];
-        }
-      
-      if (empty($_POST["newPassword"])) {
-        $this->newPasswordError = "New password is required";
-      } else {
-          $this->newPassword = $_POST['newPassword'];
-        }
-
-      if (empty($_POST["confirmNewPassword"])) {
-        $this->confirmNewPasswordError = "Confirm new password is required";
-      } else {
-          $this->confirmNewPassword = $_POST['confirmNewPassword'];
-        }
-      
-      //check if passwords match
-      if ($this->newPassword != $this->confirmNewPassword && ($this->newPassword != "" && $this->confirmNewPassword != "")) {
-        $this->newPasswordError = "New passwords do not match";
-        $this->confirmNewPasswordError = "New passwords do not match";
-      }
-      
-      //check if current password is not the same as new password
-      if ($this->currentPassword == $this->newPassword) {
-        $this->newPasswordError = "New password cannot be the same as current password";
-      }
-      
-      //only change the password when there are no errors and the current password is correct
-      if (!$this->currentPasswordError && !$this->newPasswordError && !$this->confirmNewPasswordError) {            
-        //get current user's password
-        $row = $this->crud->readUserById($this->sessionManager->getUserId());
-        $currentPasswordHashed = $row->pwd;
-        if (password_verify($this->currentPassword, $currentPasswordHashed)) {
-          $this->hashedPassword = password_hash($this->newPassword, PASSWORD_DEFAULT);
-          $this->valid = true;  
-        } else {
-            $this->currentPasswordError = "Current password is incorrect";
-          }
-      }
-    }
-  }
-
-  public function validateForm() { 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       //save input if valid and send error message when not valid
       //mandatory fields
@@ -305,6 +307,7 @@ class UserModel extends PageModel {
         }
     }
   }
+  }
  
   //todo (#23)
   private function authenticateUser() {
@@ -344,4 +347,5 @@ class UserModel extends PageModel {
     $this->crud->updatePassword($this->hashedPassword, $this->sessionManager->getUserId());
   }
 }
+
 ?>
