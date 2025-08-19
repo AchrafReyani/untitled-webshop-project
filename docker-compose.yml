@@ -15,7 +15,7 @@ services:
       - ./Database:/docker-entrypoint-initdb.d     # run all *.sql scripts from the ./Database folder as a starting point
 
   webshop:
-    image: "webshop"
+    build: .
     environment:       # some environment constants
       MYSQL_SERVER: webshop_db  # refer to the image 'webshop_db' as server
       MYSQL_SERVER_PORT: 3306

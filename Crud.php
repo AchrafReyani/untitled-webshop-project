@@ -27,9 +27,11 @@ class Crud {
     private function prepareBindExecute($sql, $params) {
         // Prepare the SQL statement
         $stmt = $this->pdo->prepare($sql);
-        // Bind the parameters to the statement
-        foreach ($params as $varName => $value) {
-            $stmt->bindValue($varName, $value);
+        // Ensure $params is an array before foreach
+        if (is_array($params)) {
+            foreach ($params as $varName => $value) {
+                $stmt->bindValue($varName, $value);
+            }
         }
         // Execute the statement
         $stmt->execute();

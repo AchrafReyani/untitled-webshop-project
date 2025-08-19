@@ -139,7 +139,6 @@ class PageController {
                 $view = new ChangePasswordDoc($this->model);
                 break;
             default:
-                echo "default case";
                 require_once("./views/HomeDoc.php");
                 $view = new HomeDoc($this->model);
                 break;

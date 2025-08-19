@@ -1,6 +1,11 @@
 <?php
 include_once "./ShopCrud.php";
 
+// Helper function to get request variables safely
+function getRequestedVar($key, $default = null) {
+    return $_REQUEST[$key] ?? $default;
+}
+
 class ShopModel extends PageModel {
     public $products = [];
     public $crud;

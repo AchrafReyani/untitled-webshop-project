@@ -16,7 +16,6 @@ class CrudFactory {
                 $this->crud = new ShopCrud($this->crud);
                 break;
             default:
-                echo "wrong crudname";
                 break;
         }
     }
