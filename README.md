@@ -16,7 +16,7 @@ A simple webshop application built with PHP and MariaDB, designed to run easily 
 
 ## Screenshot
 
-![Webshop Screenshot](images/screenshot.png)
+![Webshop Screenshot](Images/screenshot.png)
 
 ---
 
